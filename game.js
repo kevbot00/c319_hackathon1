@@ -30,9 +30,12 @@ class Game {
 
     addEventListener(){
         $('.clay').click( this.checkResources );
-        $('.food').click( this.checkResources );
+        // $('.food').click( this.checkResources );
         $('.wood').click( this.checkResources );
         $('.stone').click( this.checkResources );
+        // $('.building1').click( this.gameBoard. );
+        // $('.building2').click( this.gameBoard. );
+        // $('.building3').click( this.gameBoard. );
     }
 
     checkResources(){
@@ -40,69 +43,106 @@ class Game {
         var count = $(event.currentTarget).children().text();
         var clayCount= this.resources[0].clay;
         var resourceName = $(event.currentTarget)[0].className;
-        
-        console.log(resourceName);
-        console.log($(event.currentTarget).children().text());
-        console.log(this.activePlayer);
         if (resourceName === 'clay' && this.resources[0].clay > 0 && this.activePlayer.storageCount > 0 && this.resources[0].limit > 0){
-            // clayCount = Number(clayCount) - 1;
-            // //update DOM count element
-            // $(event.currentTarget).children().text(clayCount);
-            // //decrement the limit
-            // this.resources[0].limit--;
-            // //add to player storage
-            // this.player1.storage.clay++;
-            // console.log(this.player1.storage.clay);
-            // $('.p1clayCounter').text(this.player1.storage.clay++);
             this.resourceClicked( resourceName );
-        }    
+        } else if (resourceName === 'wood' && this.resources[0].clay > 0 && this.activePlayer.storageCount > 0 && this.resources[0].limit > 0){
+            this.resourceClicked( resourceName );
+        }   else if (resourceName === 'stone' && this.resources[0].clay > 0 && this.activePlayer.storageCount > 0 && this.resources[0].limit > 0){
+            this.resourceClicked( resourceName );
+        }  
     }
     resourceClicked( resource ){
-        debugger;
-        var clayCount= this.resources[0].clay;
+        console.log(this.resources[0]);
+        // this.resources[0].clay = this.resources[0].clay;
         switch (resource){
             case 'clay':
-                clayCount = parseInt(clayCount) - 1;
-                $(event.currentTarget).children().text(clayCount);
+                this.resources[0].clay = parseInt(this.resources[0].clay) - 1;
+                $(event.currentTarget).children().text(this.resources[0].clay);
                 this.resources[0].limit--;
                 this.activePlayer.storage.clay++;
                 this.activePlayer.pioneers--;
                 this.activePlayer.storageCount--;
-                this.updateDomElement();
+                this.updateDomElement( 'clay' );
                 if (this.playerTurnIndex === 0){
-
                     this.playerIndex = 1;
                     this.activePlayer = this.playerArray[1];
-                    
                 } else {
                     this.playerIndex = 0;
                     this.activePlayer = this.playerArray[0];
-                }
+                }      
+                break;
+            case 'wood':
+                this.resources[1].wood = parseInt(this.resources[1].wood) - 1;
+                $(event.currentTarget).children().text(this.resources[1].wood);
+                this.resources[1].limit--;
+                this.activePlayer.storage.wood++;
+                this.activePlayer.pioneers--;
+                this.activePlayer.storageCount--;
+                this.updateDomElement( 'wood' );
+                if (this.playerTurnIndex === 0){
+                    this.playerIndex = 1;
+                    this.activePlayer = this.playerArray[1];
+                } else {
+                    this.playerIndex = 0;
+                    this.activePlayer = this.playerArray[0];
+                }      
+                break;
                 
                 
         }
     }
 
-    updateDomElement(){
-
+    updateDomElement( resource ){
         var p1clayClass = $('.p1clayCounter');
         var p1pioneerClass = $('.p1pioneerCounter');
         var p1StorageCounter = $('.p1storageCounter');
         var p2clayClass = $('.p2clayCounter');
         var p2pioneerClass = $('.p2pioneerCounter');
         var p2StorageCounter = $('.p2storageCounter');
-        debugger;
+
         if (this.activePlayer === this.playerArray[0]){
-            p1clayClass.text(this.player1.storage.clay);
+            // p1clayClass.text(this.player1.storage.clay);
+            this.updatePlayerStorage( this.activePlayer, resource);
             p1pioneerClass.text(this.player1.pioneers);
-            p1StorageCounter.text(this.player1.storageCount);
-            
+            p1StorageCounter.text(this.player1.storageCount);   
             console.log(this.playerTurnIndex);
         } else {
-            p2clayClass.text(this.player2.storage.clay);
+            // p2clayClass.text(this.player2.storage.clay);
+            this.updatePlayerStorage( this.activePlayer, resource);
             p2pioneerClass.text(this.player2.pioneers);
             p2StorageCounter.text(this.player2.storageCount);
         }
+    }
+
+    updatePlayerStorage( player, resource ){
+        var p2clayClass = $('.p2clayCounter');
+        if ( player === this.playerArray[0]){
+            switch (resource){
+                case 'clay':
+                    $('.p1clayCounter').text(this.player1.storage.clay);
+                    break;
+                case 'wood':
+                    $('.p1woodCounter').text(this.player1.storage.wood);
+                    break;
+                case 'stone':
+                    $('.p1stoneCounter').text(this.player1.storage.stone);
+                    break;
+
+            }
+        } else {
+            switch (resource){
+                case 'clay':
+                    $('.p2clayCounter').text(this.player2.storage.clay);
+                    break;
+                case 'wood':
+                    $('.p2woodCounter').text(this.player2.storage.wood);
+                    break;
+                case 'stone':
+                    $('.p2stoneCounter').text(this.player2.storage.stone);
+                    break;
+            }
+        }
+        
     }
 
     render(){
