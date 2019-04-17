@@ -10,7 +10,7 @@ var resources = [{
     limit: 1
 },
 {
-    brick: 9,
+    stone: 9,
     limit: 1
 }
 ];
@@ -27,7 +27,7 @@ var buildings = [
     name: 'barn',
     requirements: {
         wood: 1,
-        brick: 1
+        stone: 1
     }
 }
 ];
