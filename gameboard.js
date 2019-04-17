@@ -25,12 +25,11 @@ class Gameboard{
         this.building3 = this.sourceBuildings.pop();
     }
     addBuildingsToDom( building1, building2, building3 ){
-<<<<<<< HEAD
+
         var newDiv = $('<div>').addClass('babyDiv');
         var divImg = newDiv.css('background-color', 'green').text('Points: 3');
         $('.building1').append(newDiv);
         
-=======
         // $()
     }
 
@@ -41,7 +40,6 @@ class Gameboard{
         //     console.log(key);
         //     for (var key in player.storage)
         // }
->>>>>>> 2568eb4e46a13df53aac6a39dda33b2f59ad5368
     }
 
 
