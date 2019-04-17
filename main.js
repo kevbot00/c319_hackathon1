@@ -29,6 +29,20 @@ var buildings = [
         wood: 1,
         stone: 1
     }
+},
+{
+    name: 'wheelbarrow',
+    requirements:{
+        clay: 1,
+        wood: 1
+    },
+},
+{
+    name: 'windmill',
+    requirements: {
+        wood: 1,
+        stone: 1
+    }
 }
 ];
 

@@ -3,7 +3,7 @@ class Game {
         this.resources = resources;
         this.buildings = buildings;
         this.tokens = tokens;
-        this.gameBoard = new Gameboard();
+        this.gameBoard = new Gameboard(this.resources, this.buildings, this.tokens);
         this.player1 = new Player();
         this.player2 = new Player();
         this.playerArray = [];
