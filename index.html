@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- <link rel="stylesheet" href="style.css"> -->
+  <link rel="stylesheet" href="style.css">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -18,26 +18,44 @@
 
     <div class="gameArea">
       <div class="resources">
-        <div class="clay">Clay: <span class='gameClayCounter'>9</span></div>
-        <div class="food">Food: <span class="gamefoodCounter">4</span></div>
-        <div class="wood">Wood: <span class="gamewoodCounter">9</span></div>
-        <div class="stone">Stone: <span class="gamestoneCounter">9</span></div>
+        <div class="resourceContainer">
+          <div class="clay">Clay: <span class='gameClayCounter'>9</span></div>
+        </div>
+        <div class="resourceContainer">
+          <div class="food">Food: <span class="gamefoodCounter">4</span></div>
+        </div>
+        <div class="resourceContainer">
+          <div class="wood">Wood: <span class="gamewoodCounter">9</span></div>
+        </div>
+        <div class="resourceContainer">
+          <div class="stone">Stone: <span class="gamestoneCounter">9</span></div>
+        </div>
       </div>
       <div class="buildings">
-        <div class="card"></div>
-        <div class="card"></div>
-        <div class="card"></div>
-        <div class="cardStatic"></div>
+        <div class="buildingsContainer">
+          <div class="card">Building 1</div>
+        </div>
+        <div class="buildingsContainer">
+          <div class="card">Building 2</div>
+        </div>
+        <div class="buildingsContainer">
+          <div class="card">Building 3</div>
+        </div>
+        <div class="buildingsContainer">
+          <div class="cardStatic">Static Deck</div>
+        </div>
       </div>
     </div>
 
     <div class="playerArea">
       <div class="p1">
-        <div>Player 1</div>
-        <div>Points: <span class="p1pointsCounter">0</span></div>
-        <div>Buildings Made: <span class="p1buildingsCounter">0</span></div>
-        <div>Storage Left: <span class="p1storageCounter">2</span></div>
-        <div>
+        <div class="col1">
+          <div>Player 1</div>
+          <div>Points: <span class="p1pointsCounter">0</span></div>
+          <div>Buildings Made: <span class="p1buildingsCounter">0</span></div>
+          <div>Storage Left: <span class="p1storageCounter">2</span></div>
+        </div>
+        <div class="col2">
           <div>Clay: <span class='p1clayCounter'>0</span></div>
           <div>Food: <span class="p1foodCounter">0</span></div>
           <div>Wood: <span class="p1woodCounter">0</span></div>
@@ -45,11 +63,13 @@
         </div>
       </div>
       <div class="p2">
-        <div>Player 2</div>
-        <div>Points: <span class="p2pointsCounter">0</span></div>
-        <div>Buildings Made: <span class="p2buildingsCounter">0</span></div>
-        <div>Storage Left: <span class="p2storageCounter">2</span></div>
-        <div>
+        <div class="col1">
+          <div>Player 2</div>
+          <div>Points: <span class="p2pointsCounter">0</span></div>
+          <div>Buildings Made: <span class="p2buildingsCounter">0</span></div>
+          <div>Storage Left: <span class="p2storageCounter">2</span></div>
+        </div>
+        <div class="col2">
           <div>Clay: <span class='p2clayCounter'>0</span></div>
           <div>Food: <span class="p2foodCounter">0</span></div>
           <div>Wood: <span class="p2woodCounter">0</span></div>

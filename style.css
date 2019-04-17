@@ -1,0 +1,76 @@
+body{
+  height: 100vh;
+  width: 100vw;
+  margin: 0;
+}
+
+.gameBoard{
+  height: 100%;
+  width: 100%;
+  background-color: gray;
+}
+
+.gameArea{
+  height: 75%;
+  width: 100%;
+  background-color: fuchsia;
+  display: flex;
+}
+
+.resources{
+  height: 100%;
+  width: 50%;
+  background-color: lightblue;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.resourceContainer, .buildingsContainer{
+  height: 50%;
+  width: 50%;
+  display: flex;
+}
+
+.clay, .food, .wood, .stone{
+  top: 20%;
+  left: 20%;
+  height: 60%;
+  width: 60%;
+  position: relative;
+  border: 3px black solid;
+  cursor: pointer;
+}
+
+.buildings{
+  height: 100%;
+  width: 50%;
+  background-color: lightcoral;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.card{
+  cursor: pointer;
+}
+
+.card, .cardStatic{
+  top: 20%;
+  left: 20%;
+  height: 60%;
+  width: 60%;
+  position: relative;
+  border: 3px black solid;
+}
+
+.playerArea{
+  height: 25%;
+  width: 100%;
+  background-color: blueviolet;
+  display: flex;
+}
+
+.p1, .p2{
+  height: 100%;
+  width: 50%;
+  display: flex;
+}
