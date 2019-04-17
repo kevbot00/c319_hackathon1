@@ -7,7 +7,7 @@ class Gameboard{
         this.building1 = null;
         this.building2 = null;
         this.building3 = null;
-
+        this.checkRequirements = this.checkRequirements.bind(this);
         this.shuffle( this.sourceBuildings );
         this.dealBuildingCards();
     }
@@ -25,11 +25,26 @@ class Gameboard{
         this.building3 = this.sourceBuildings.pop();
     }
     addBuildingsToDom( building1, building2, building3 ){
+<<<<<<< HEAD
         var newDiv = $('<div>').addClass('babyDiv');
         var divImg = newDiv.css('background-color', 'green').text('Points: 3');
         $('.building1').append(newDiv);
         
+=======
+        // $()
     }
+
+    checkRequirements( player , building ){
+        var matchedProduction = [];
+        console.log(player, building )
+        // for (var key in this.building1.requirements){
+        //     console.log(key);
+        //     for (var key in player.storage)
+        // }
+>>>>>>> 2568eb4e46a13df53aac6a39dda33b2f59ad5368
+    }
+
+
 
 
 }
