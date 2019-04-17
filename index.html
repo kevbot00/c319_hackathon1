@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <link rel="stylesheet" href="style.css">
+  <!-- <link rel="stylesheet" href="style.css"> -->
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -18,10 +18,10 @@
 
     <div class="gameArea">
       <div class="resources">
-        <div class="clay"></div>
-        <div class="food"></div>
-        <div class="wood"></div>
-        <div class="stone"></div>
+        <div class="clay">Clay: <span class='gameClayCounter'>9</span></div>
+        <div class="food">Food: <span class="gamefoodCounter">4</span></div>
+        <div class="wood">Wood: <span class="gamewoodCounter">9</span></div>
+        <div class="stone">Stone: <span class="gamestoneCounter">9</span></div>
       </div>
       <div class="buildings">
         <div class="card"></div>
@@ -32,28 +32,28 @@
     </div>
 
     <div class="playerArea">
-      <div class="player1">
-        <div class="player1name">Player 1</div>
-        <div class="player1points">Points: 0</div>
-        <div class="player1buildingsMade">Buildings Made: 0</div>
-        <div class="player1storageLeft">Storage Left: 4</div>
-        <div class="player1Resources">
-          <div class="player1clay">Clay: 0</div>
-          <div class="player1food">Food: 0</div>
-          <div class="player1wood">Wood: 0</div>
-          <div class="player1stone">Stone: 0</div>
+      <div class="p1">
+        <div>Player 1</div>
+        <div>Points: <span class="p1pointsCounter">0</span></div>
+        <div>Buildings Made: <span class="p1buildingsCounter">0</span></div>
+        <div>Storage Left: <span class="p1storageCounter">0</span></div>
+        <div>
+          <div>Clay: <span class='p1clayCounter'>0</span></div>
+          <div>Food: <span class="p1foodCounter">0</span></div>
+          <div>Wood: <span class="p1woodCounter">0</span></div>
+          <div>Stone: <span class="p1stoneCounter">0</span></div>
         </div>
       </div>
-      <div class="player2">
-        <div class="player2name">Player 2</div>
-        <div class="player2points">Points: 0</div>
-        <div class="player2buildingsMade">Buildings Made: 0</div>
-        <div class="player2storageLeft">Storage Left: 4</div>
-        <div class="player2Resources">
-          <div class="player2clay">Clay: 0</div>
-          <div class="player2food">Food: 0</div>
-          <div class="player2wood">Wood: 0</div>
-          <div class="player2stone">Stone: 0</div>
+      <div class="p2">
+        <div>Player 2</div>
+        <div>Points: <span class="p2pointsCounter">0</span></div>
+        <div>Buildings Made: <span class="p2buildingsCounter">0</span></div>
+        <div>Storage Left: <span class="p2storageCounter">0</span></div>
+        <div>
+          <div>Clay: <span class='p2clayCounter'>0</span></div>
+          <div>Food: <span class="p2foodCounter">0</span></div>
+          <div>Wood: <span class="p2woodCounter">0</span></div>
+          <div>Stone: <span class="p2stoneCounter">0</span></div>
         </div>
       </div>
     </div>
