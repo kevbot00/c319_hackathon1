@@ -3,7 +3,7 @@ $(document).ready(startApp);
 var game;
 var resources = [{
     clay: 9,
-    limit: 1
+    limit: 4
 },
 {
     wood: 9,
@@ -37,6 +37,6 @@ var tokens = [1,2,3,4,5,6];
 
 function startApp(){
     game = new Game( resources, buildings, tokens);
-    game.startGame();
+    // game.startGame();
     game.render();
 }
