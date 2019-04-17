@@ -25,7 +25,10 @@ class Gameboard{
         this.building3 = this.sourceBuildings.pop();
     }
     addBuildingsToDom( building1, building2, building3 ){
-        $()
+        var newDiv = $('<div>').addClass('babyDiv');
+        var divImg = newDiv.css('background-color', 'green').text('Points: 3');
+        $('.building1').append(newDiv);
+        
     }
 
 

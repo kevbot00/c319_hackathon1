@@ -33,7 +33,7 @@ class Game {
         // $('.food').click( this.checkResources );
         $('.wood').click( this.checkResources );
         $('.stone').click( this.checkResources );
-        // $('.building1').click( this.gameBoard. );
+        // $('.building1').click( this.gameBoard );
         // $('.building2').click( this.gameBoard. );
         // $('.building3').click( this.gameBoard. );
     }
