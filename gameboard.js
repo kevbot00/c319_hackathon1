@@ -7,7 +7,7 @@ class Gameboard{
         this.building1 = null;
         this.building2 = null;
         this.building3 = null;
-
+        this.checkRequirements = this.checkRequirements.bind(this);
         this.shuffle( this.sourceBuildings );
         this.dealBuildingCards();
     }
@@ -25,8 +25,19 @@ class Gameboard{
         this.building3 = this.sourceBuildings.pop();
     }
     addBuildingsToDom( building1, building2, building3 ){
-        $()
+        // $()
     }
+
+    checkRequirements( player , building ){
+        var matchedProduction = [];
+        console.log(player, building )
+        // for (var key in this.building1.requirements){
+        //     console.log(key);
+        //     for (var key in player.storage)
+        // }
+    }
+
+
 
 
 }

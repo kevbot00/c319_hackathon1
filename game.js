@@ -9,23 +9,16 @@ class Game {
         this.playerArray = [];
         this.playerArray.push( this.player1, this.player2);
         // false = player1 turn, true = player2 turn
-
-        
         this.playerTurnIndex = 0;
         this.activePlayer = this.playerArray[this.playerTurnIndex];
         
         this.addEventListener = this.addEventListener.bind(this);
         this.checkResources = this.checkResources.bind(this);
-        // this.updateDomElement = this.updateDomElement.bind(this);
+        this.checkRequirement = this.checkRequirement.bind(this);
         this.addEventListener();
 
 
 
-    }
-
-    startGame(){
-        
-    
     }
 
     addEventListener(){
@@ -33,9 +26,17 @@ class Game {
         // $('.food').click( this.checkResources );
         $('.wood').click( this.checkResources );
         $('.stone').click( this.checkResources );
-        // $('.building1').click( this.gameBoard. );
-        // $('.building2').click( this.gameBoard. );
-        // $('.building3').click( this.gameBoard. );
+        $('.building1').click( this.checkRequirement);
+        $('.building2').click( this.checkRequirement );
+        $('.building3').click( this.checkRequirement );
+    }
+
+    checkRequirement(){
+        if (this.playerTurnIndex === 0){
+            this.gameBoard.checkRequirements( this.player1, $(event.currentTarget));
+        } else {
+            this.gameBoard.checkRequirements( this.player2, $(event.currentTarget));
+        }
     }
 
     checkResources(){
@@ -64,10 +65,10 @@ class Game {
                 this.activePlayer.storageCount--;
                 this.updateDomElement( 'clay' );
                 if (this.playerTurnIndex === 0){
-                    this.playerIndex = 1;
+                    this.playerTurnIndex = 1;
                     this.activePlayer = this.playerArray[1];
                 } else {
-                    this.playerIndex = 0;
+                    this.playerTurnIndex = 0;
                     this.activePlayer = this.playerArray[0];
                 }      
                 break;
@@ -80,10 +81,26 @@ class Game {
                 this.activePlayer.storageCount--;
                 this.updateDomElement( 'wood' );
                 if (this.playerTurnIndex === 0){
-                    this.playerIndex = 1;
+                    this.playerTurnIndex = 1;
                     this.activePlayer = this.playerArray[1];
                 } else {
-                    this.playerIndex = 0;
+                    this.playerTurnIndex = 0;
+                    this.activePlayer = this.playerArray[0];
+                }      
+                break;
+            case 'stone':
+                this.resources[2].stone = parseInt(this.resources[2].stone) - 1;
+                $(event.currentTarget).children().text(this.resources[2].stone);
+                this.resources[2].limit--;
+                this.activePlayer.storage.stone++;
+                this.activePlayer.pioneers--;
+                this.activePlayer.storageCount--;
+                this.updateDomElement( 'stone' );
+                if (this.playerTurnIndex === 0){
+                    this.playerTurnIndex = 1;
+                    this.activePlayer = this.playerArray[1];
+                } else {
+                    this.playerTurnIndex = 0;
                     this.activePlayer = this.playerArray[0];
                 }      
                 break;
