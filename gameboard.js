@@ -7,12 +7,12 @@ class Gameboard{
             building1: null,
             building2: null,
             building3: null
-        }
-
+        };
         this.checkRequirements = this.checkRequirements.bind(this);
         this.shuffle( this.sourceBuildings );
         this.dealBuildingCards();
     }
+
     shuffle( thingToShuffle ){
         for( var cardI = thingToShuffle.length-1; cardI>0; cardI--){
             var randomIndex = Math.floor(Math.random() * cardI);
@@ -21,11 +21,13 @@ class Gameboard{
             thingToShuffle[cardI] = temp;
         }
     }
+
     dealBuildingCards(){
         this.buildings.building1 = this.sourceBuildings.pop();
         this.buildings.building2 = this.sourceBuildings.pop();
         this.buildings.building3 = this.sourceBuildings.pop();
     }
+
     addBuildingsToDom( building1, building2, building3 ){
         var newDiv = $('<div>')
             .addClass('babyDiv')
@@ -35,15 +37,11 @@ class Gameboard{
     }
 
     checkRequirements( player , building ){
-
-        console.log(this.buildings[building].requirements);
-        console.log(player.storage);
-
         if (this.buildings.building === null) {
             return;
         }
+
         var buildingReq = this.buildings[building].requirements;
-        debugger;
         for (var key in buildingReq){
             if (buildingReq[key] > player.storage[key]){
                 console.log(false);
@@ -59,6 +57,16 @@ class Gameboard{
         // change bulding to null
         //return resources to board
 
+    }
+
+    resetBuildingCards(){
+        console.log('initial', this.buildings);
+        for (var key in this.buildings){
+            if (this.buildings[key] === null){
+                this.buildings[key] = this.sourceBuildings.pop();
+            }
+        }
+        
     }
 
 

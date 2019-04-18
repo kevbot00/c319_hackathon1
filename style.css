@@ -37,7 +37,7 @@ body{
   height: 60%;
   width: 60%;
   position: relative;
-  border: 3px black solid;
+  border: 2px black solid;
   cursor: pointer;
 }
 
@@ -75,3 +75,8 @@ body{
 .templateArea{
   display: none;
 }
+
+div#playerDom {
+  width: 25%;
+}
+

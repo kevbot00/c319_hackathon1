@@ -12,9 +12,10 @@ class Game {
         this.playerTurnIndex = 0;
         this.addEventListener = this.addEventListener.bind(this);
         this.checkResources = this.checkResources.bind(this);
-        this.checkRequirement = this.checkRequirement.bind(this);
+        this.checkBuildingRequirement = this.checkBuildingRequirement.bind(this);
         this.addEventListener();
     }
+
 
     addPlayer(color){
         var playerObj = new Player(color);
@@ -28,12 +29,12 @@ class Game {
         $('.wood').click( this.checkResources );
         $('.stone').click( this.checkResources );
 
-        $('.building1').click( this.checkRequirement);
-        $('.building2').click( this.checkRequirement );
-        $('.building3').click( this.checkRequirement );
+        $('.building1').click( this.checkBuildingRequirement);
+        $('.building2').click( this.checkBuildingRequirement );
+        $('.building3').click( this.checkBuildingRequirement );
     }
 
-    checkRequirement(){
+    checkBuildingRequirement(){
         var buildingClicked = $(event.currentTarget).attr('class');
         var buildingData = this.gameBoard.checkRequirements( this.players[this.playerTurnIndex], $(event.currentTarget).attr('class'));
 
@@ -43,39 +44,36 @@ class Game {
         }
         
     }
-    updateAll(buildingData){
+    updateAll( buildingData ){
+        debugger;
         for (var key in buildingData.requirements) {
-            this.players[this.playerTurnIndex].updatePerBuilding( key, buildingData.requirements[key], buildingData.points[key], -1 );
-            // console.log( this.players[this.playerTurnIndex]);
+            this.players[this.playerTurnIndex].updatePerBuilding( key, buildingData.requirements[key], buildingData.points, -1 );
             this.updateBuyback(key, buildingData.requirements);
-            // (".resources").find('span.'+buildingData).text(this.resources[index][resource]);
+            
         }
+        this.players[this.playerTurnIndex].addBuildingsMade();
         this.gameBoard.buildings.buildingClicked = null;
-
-        console.log('building requirements',this.gameBoard.buildings.buildingClicked );
-        console.log('player storage after buy', this.players[this.playerTurnIndex]);
     }
-    updateBuyback( key, buildingData ){
+    updateBuyback( key, buildingData){
+        var index = null;
         switch(key){
             case 'clay':
-                this.resources[0].clay += buildingData[key];
+                index = 0;
                 break;
             case 'wood':
-                this.resources[1].wood += buildingData[key];
+                index = 1;
                 break;
             case 'stone':
-                this.resources[2].stone += buildingData[key];
+                index = 2;
                 break;
         }
+        this.resources[index][key] += buildingData[key];
+        $(".resources").find('span.'+key).text(this.resources[index][key]);
     }
 
 
     checkResources(){
         var resource = $(event.currentTarget).children().attr('class');
-        // console.log(this.resources[1]);
-        // console.log(this.players[this.playerTurnIndex].storageCount);
-        var count = $(event.currentTarget).children().text();
-        var clayCount= this.resources[0].clay;
         var resourceName = $(event.currentTarget)[0].className;
         if (resourceName === 'clay' && this.resources[0][resource] > 0 && this.players[this.playerTurnIndex].storageCount > 0 && this.resources[0].limit){
             this.resourceClicked( resourceName , 0);
@@ -87,7 +85,7 @@ class Game {
     }
     resourceClicked( resource , index ){
         this.resources[index][resource] = this.resources[index][resource] - 1;
-        this.resources[index].limit = this.resources[index].limit - 1
+        this.resources[index].limit = this.resources[index].limit - 1;
         $(".resources").find('span.'+resource).text(this.resources[index][resource]);
         this.players[this.playerTurnIndex].updateStats(resource, 1, -1);
         this.gotoNextPlayer();
@@ -95,8 +93,25 @@ class Game {
     }
     gotoNextPlayer(){
         this.playerTurnIndex++;
-        if(this.playerTurnIndex===this.players.length){
+        if(this.playerTurnIndex === this.players.length){
             this.playerTurnIndex = 0;
+        }
+    }
+
+    resetTurn(){
+        this.gameBoard.resetBuildingCards();
+        console.log(this.players.length);
+        for (var i = 0; i < this.players.length; i++){
+            this.players[i].resetPlayerPioneer();
+        }
+        //reset resources limit
+        this.resetResourceLimit();
+
+    }
+
+    resetResourceLimit(){
+        for (var key in this.resources){
+            this.resources[key].limit = 2;
         }
     }
 
