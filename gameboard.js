@@ -35,14 +35,12 @@ class Gameboard{
             for (var x in req){
                 resources = x;
             }
-            
             var pointVal = $('<div>').text('Points: ' + this.buildings[building].points);
             var requirements = $('<div>').text('Requires: ' + resources);
-
             var newDiv = $('<div>')
             .addClass('babyDiv')
             .css({'background-color': 'green', 'height': '100%'})
-            .append(pointVal, requirements)
+            .append(pointVal, requirements);
             $('.'+building).append(newDiv);
         }
     }
@@ -51,36 +49,29 @@ class Gameboard{
         if (this.buildings.building === null) {
             return;
         }
-        var foodCount = null;
+        var foodCount = 0;
         var buildingReq = this.buildings[building].requirements;
-        debugger;
         for (var key in buildingReq){
             if (buildingReq[key] > player.storage[key] + player.storage.food){
                 return false;
-            }
-            if (player.storage.food){
-            buildingReq[key] -= player.storage.food;
-            buildingReq.food = player.storage.food - buildingReq[key] || 1;
-            foodCount = buildingReq.food;
-            player.storage.food -= buildingReq.food;
+            } else if (player.storage.food){
+                if (buildingReq[key] > player.storage.food){
+                    buildingReq.food = buildingReq[key] - player.storage.food + foodCount || 1;
+                    foodCount += buildingReq[key] - player.storage.food || 1;
+                    buildingReq[key] -= buildingReq[key] - foodCount || 1;
+                } else {
+                    buildingReq.food = player.storage.food - buildingReq[key] + foodCount || 1;
+                    foodCount += player.storage.food - buildingReq[key] || 1;
+                    buildingReq[key] -= buildingReq[key] - foodCount || 1;
+                } 
+                player.storage.food = buildingReq.food;
             }
         }
-
         player.storage.food = foodCount;
-
-
         return this.buildings[building];
-        //if all true, start to decrement player storage as required
-        //increment victory points
-        //increment building made
-        // decrement pioneers
-        // change bulding to null
-        //return resources to board
-
     }
 
     resetBuildingCards(){
-        console.log('initial', this.buildings);
         for (var key in this.buildings){
             if (this.buildings[key] === null){
                 this.buildings[key] = this.sourceBuildings.pop();
