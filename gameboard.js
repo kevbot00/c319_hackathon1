@@ -40,14 +40,23 @@ class Gameboard{
         if (this.buildings.building === null) {
             return;
         }
-
+        var foodCount = null;
         var buildingReq = this.buildings[building].requirements;
+        debugger;
         for (var key in buildingReq){
-            if (buildingReq[key] > player.storage[key]){
-                console.log(false);
+            if (buildingReq[key] > player.storage[key] + player.storage.food){
                 return false;
             }
+            if (player.storage.food){
+            buildingReq[key] -= player.storage.food;
+            buildingReq.food = player.storage.food - buildingReq[key] || 1;
+            foodCount = buildingReq.food;
+            player.storage.food -= buildingReq.food;
+            }
         }
+
+        player.storage.food = foodCount;
+
 
         return this.buildings[building];
         //if all true, start to decrement player storage as required
