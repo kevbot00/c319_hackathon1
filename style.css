@@ -98,7 +98,6 @@ div#playerDom {
   height: 100%;
   display: flex;
   justify-content: space-around;
-  /* background-color: white; */
   border-radius: 20px;
 }
 .playerArea img {

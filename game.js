@@ -40,7 +40,6 @@ class Game {
     }
 
     checkResources(){
-        debugger;
         var resource = $(event.currentTarget).children().attr('class');
         var resourceName = $(event.currentTarget)[0].className;
         if (resource === 'clay' && this.resources[0][resource] > 0 && this.players[this.playerTurnIndex].storageCount > 0 && this.resources[0].limit){
@@ -66,11 +65,9 @@ class Game {
     }
 
     checkBuildingRequirement(){
-
         var buildingClicked = $(event.currentTarget).attr('class');
         var buildingData = this.gameBoard.checkRequirements( this.players[this.playerTurnIndex], buildingClicked);
         if (buildingData && buildingClicked) {
-            // debugger;
             this.updateAll(buildingData);
             this.gameBoard.clickedBuildingCards(buildingClicked);
             this.gotoNextPlayer();
@@ -78,13 +75,13 @@ class Game {
     }
 
     updateAll( buildingData ){
-        this.players[this.playerTurnIndex].updatePoints( buildingData.points, this.tokens.pop());
+        var tokenValue = this.tokens.pop();
+        this.players[this.playerTurnIndex].updatePoints( buildingData.points, tokenValue);
         this.players[this.playerTurnIndex].updateBuildingWorkerAdjust( -1 );
         for (var key in buildingData.requirements) {
             this.players[this.playerTurnIndex].updatePerBuilding( key, buildingData.requirements[key]);
             this.updateBuyback(key, buildingData.requirements);
         }
-        var tokenValue = this.tokens.pop();
         this.players[this.playerTurnIndex].addBuildingsMade( buildingData.points, tokenValue, -1 );
         $(event.currentTarget).children().fadeOut(500);
     }
@@ -110,14 +107,19 @@ class Game {
     }
     
     gotoNextPlayer(){
-        debugger;
         if( this.players[0].pioneers === 0 && this.players[1].pioneers === 0 && this.players[0].buildingsMade !== 2 && this.players[1].buildingsMade !== 2 ){
             this.resetTurn();
             this.resetResourceLimit();
-            debugger;
             this.gameBoard.resetBuildingCards();
         } else if( this.players[0].buildingsMade === 2 || this.players[0].buildingsMade === 2 ){
-            this.gameWin();
+            var message = '';
+
+            if( this.players[0].victoryPoint + this.players[0].tokenCount > this.players[1].victoryPoint + this.players[2].tokenCount ){
+                message = 'Player 1';    
+            } else {
+                message = 'Player 2';
+            }
+            this.gameWin(message);
         }
         this.playerTurnIndex++;
         if(this.playerTurnIndex === this.players.length){
@@ -125,8 +127,10 @@ class Game {
         }
     }
 
-    gameWin(){
+    gameWin(message){
+        $('.message').text(message + ' congrats! You have conquered The River!');
         $('.congrats-modal').fadeIn();
+ 
     }
     gameRefresh(){
         location.reload();

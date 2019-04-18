@@ -51,7 +51,6 @@ class Gameboard{
     }
 
     checkRequirements( player , building ){
-        debugger;
         if (this.buildings[building] === null) {
             return;
         }
@@ -102,9 +101,7 @@ class Gameboard{
     }
 
     clickedBuildingCards( building ){
-        debugger;
         this.buildings[building] = null;
-
     }
 
     addBlankBuildingsToDom(){
