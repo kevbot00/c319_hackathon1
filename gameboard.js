@@ -9,6 +9,7 @@ class Gameboard{
             building3: null
         };
         this.checkRequirements = this.checkRequirements.bind(this);
+        this.clickedBuildingCards = this.clickedBuildingCards.bind(this);
         this.shuffle( this.sourceBuildings );
         this.dealBuildingCards();
         this.addBuildingsToDom();
@@ -44,13 +45,14 @@ class Gameboard{
             var newDiv = $('<div>')
             .addClass('babyDiv')
             .css({'height': '100%'})
-            .append( pointVal, requirements)
+            .append( pointVal, requirements);
             $('.'+building).append(newDiv);
         }
     }
 
     checkRequirements( player , building ){
-        if (this.buildings.building === null) {
+        debugger;
+        if (this.buildings[building] === null) {
             return;
         }
         var foodCount = 0;
@@ -72,6 +74,7 @@ class Gameboard{
             }
         }
         player.storage.food = foodCount;
+        // this.buildings[building] = null;
         return this.buildings[building];
     }
 
@@ -79,9 +82,53 @@ class Gameboard{
         for (var key in this.buildings){
             if (this.buildings[key] === null){
                 this.buildings[key] = this.sourceBuildings.pop();
+                var resources = '';
+                var req = this.buildings[key].requirements;
+                for (var x in req){
+                    resources = req[x] + ' ' + x + ", " + resources;
+                    resources = resources.slice(0,-1);
+                }
+                var pointVal = $('<div>').text('Points: ' + this.buildings[key].points);
+                var requirements = $('<div>').text('Requires: ' + resources);
+                // var image = $('<img>').attr('src', 'images/building.png');
+
+                var newDiv = $('<div>')
+                .addClass('babyDiv')
+                .css({'height': '100%'})
+                .append( pointVal, requirements);
+                $('.'+key).append(newDiv);
             }
         }
-        
+    }
+
+    clickedBuildingCards( building ){
+        debugger;
+        this.buildings[building] = null;
+
+    }
+
+    addBlankBuildingsToDom(){
+        console.log(buildingClicked)
+        for (var building in this.buildings){
+            var resources = '';
+            var req = this.buildings[building].requirements;
+            for (var x in req){
+                resources = req[x] + ' ' + x + ", " + resources;
+                resources = resources.slice(0,-1);
+            }
+            var pointVal = $('<div>').text('Points: ' + this.buildings[building].points);
+            var requirements = $('<div>').text('Requires: ' + resources);
+            // var image = $('<img>').attr('src', 'images/building.png');
+
+            var newDiv = $('<div>')
+            .addClass('babyDiv')
+            .css({'height': '100%'})
+            .append( pointVal, requirements);
+            $('.'+building).append(newDiv);
+        }
+        // this.buildings.building1 = this.sourceBuildings.pop();
+        // this.buildings.building2 = this.sourceBuildings.pop();
+        // this.buildings.building3 = this.sourceBuildings.pop();
     }
 
 

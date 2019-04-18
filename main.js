@@ -51,6 +51,38 @@ var buildings = [
         wood: 1,
         clay: 2
     }
+},
+{
+    name: 'windmill',
+    points: 100,
+    requirements: {
+        wood: 1,
+        clay: 2
+    }
+},
+{
+    name: 'windmill',
+    points: 100,
+    requirements: {
+        wood: 1,
+        clay: 2
+    }
+},
+{
+    name: 'windmill',
+    points: 100,
+    requirements: {
+        wood: 1,
+        clay: 2
+    }
+},
+{
+    name: 'windmill',
+    points: 100,
+    requirements: {
+        wood: 1,
+        clay: 2
+    }
 }
 ];
 
