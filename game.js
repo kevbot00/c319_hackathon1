@@ -38,7 +38,6 @@ class Game {
         } else {
             this.gameBoard.checkRequirements( this.player2, $(event.currentTarget));
         }
-
     }
 
     checkResources(){

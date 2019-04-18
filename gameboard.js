@@ -39,7 +39,7 @@ class Gameboard{
         // for (var key in this.building1.requirements){
         //     console.log(key);
         //     for (var key in player.storage)
-        // }8
+
     }
 
 
