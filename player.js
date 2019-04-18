@@ -10,22 +10,19 @@ class Player{
         this.storage = {
             wood: 0,
             clay: 0,
-            stone: 0
+            stone: 0,
+            food: 0
         };
         this.playerArea = null;
     }
 
     updateStats( resource, delta, workerAdjust ){
-        debugger;
         if(workerAdjust!==undefined){
             this.pioneers+=workerAdjust;
         }
         this.storage[resource]+=delta;
         this.storageCount-=delta;
         this.renderDomElements( resource );
-        // this.playerArea.find('.pioneers').text(this.pioneers);
-        // this.playerArea.find('.'+resource).text(this.storage[resource]);
-        // this.playerArea.find('.storage').text(this.storageCount);
     }
 
     addBuildingsMade(){
@@ -34,19 +31,13 @@ class Player{
     }
 
     updatePerBuilding ( resource, delta, points, workerAdjust){
-        debugger;
         if(workerAdjust!==undefined){
             this.pioneers+=workerAdjust;
         }
         this.storage[resource]-=delta;
         this.storageCount+=delta;
         this.victoryPoint+=points;
-        // DOM manipulation
         this.renderDomElements( resource );
-        // this.playerArea.find('.pioneers').text(this.pioneers);
-        // this.playerArea.find('.'+resource).text(this.storage[resource]);
-        // this.playerArea.find('.storage').text(this.storageCount);
-        // this.playerArea.find('.points').text(this.victoryPoint);
     }
 
     resetPlayerPioneer(){

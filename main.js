@@ -12,6 +12,10 @@ var resources = [{
 {
     stone: 9,
     limit: 1
+},
+{
+    food: 4,
+    limit: Infinity
 }
 ];
 
@@ -20,8 +24,8 @@ var buildings = [
     name: 'farm',
     points: 100,
     requirements:{
-        clay: 1,
-        wood: 1
+        wood: 1,
+        clay: 1
     },
 },
 {
@@ -36,8 +40,8 @@ var buildings = [
     name: 'wheelbarrow',
     points: 100,
     requirements:{
-        clay: 1,
-        wood: 1
+        wood: 1,
+        clay: 1
     },
 },
 {
