@@ -26,18 +26,20 @@ class Player{
         this.renderDomElements( resource );
     }
 
-    addBuildingsMade(){
-        this.buildingsMade++;
-        this.renderDomElements();
-    }
-
-    updatePerBuilding ( resource, delta, points, workerAdjust){
+    addBuildingsMade( buildingValue, tokenValue, workerAdjust ){
         if(workerAdjust!==undefined){
             this.pioneers+=workerAdjust;
         }
+        this.buildingsMade++;
+        this.victoryPoint+=tokenValue + buildingValue;
+        this.tokenCount++;
+        this.renderDomElements();
+    }
+
+    updatePerBuilding ( resource, delta ){
         this.storage[resource]-=delta;
         this.storageCount+=delta;
-        this.victoryPoint+=points;
+        // DOM manipulation
         this.renderDomElements( resource );
     }
 
@@ -48,6 +50,7 @@ class Player{
 
     render(){
         this.playerArea = $("#playerDom").clone();
+    
         this.playerArea.css({
             backgroundColor: 'light'+this.color
         });
@@ -58,6 +61,7 @@ class Player{
         this.playerArea.find('.pioneers').text(this.pioneers);
         this.playerArea.find('.'+resource).text(this.storage[resource]);
         this.playerArea.find('.buildings').text(this.buildingsMade);
+        this.playerArea.find('.tokens').text(this.tokenCount);
         this.playerArea.find('.storage').text(this.storageCount);
         this.playerArea.find('.points').text(this.victoryPoint);
     }
