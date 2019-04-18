@@ -60,6 +60,10 @@ class Gameboard{
         //return resources to board
 
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 0bff63d456304a7e9eecbe3158b8a5b84c787425
 
     }
 
