@@ -33,6 +33,8 @@ class Game {
         $('.building1').click( this.checkBuildingRequirement );
         $('.building2').click( this.checkBuildingRequirement );
         $('.building3').click( this.checkBuildingRequirement );
+
+        $('.reset-button').click( this.gameRefresh );
     }
 
     checkResources(){
@@ -120,7 +122,9 @@ class Game {
     gameWin(){
         $('.congrats-modal').fadeIn();
     }
-
+    gameRefresh(){
+        location.reload();
+    }
     resetTurn(){
         this.gameBoard.resetBuildingCards();
         for (var i = 0; i < this.players.length; i++){
