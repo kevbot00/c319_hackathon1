@@ -107,11 +107,17 @@ class Game {
         if( this.players[0].pioneers === 0 && this.players[1].pioneers === 0 && this.players[0].buildingsMade !== 2 && this.players[1].buildingsMade !== 2 ){
             this.resetTurn();
             this.resetResourceLimit();
+        } else if( this.players[0].buildingsMade === 2 || this.players[0].buildingsMade === 2 ){
+            this.gameWin();
         }
         this.playerTurnIndex++;
         if(this.playerTurnIndex === this.players.length){
             this.playerTurnIndex = 0;
         } 
+    }
+
+    gameWin(){
+        alert('GAME WINNER CONGRATS PLAYER ' + this.players[this.playerTurnIndex].color);
     }
 
     resetTurn(){
