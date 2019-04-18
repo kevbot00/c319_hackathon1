@@ -28,7 +28,7 @@ class Game {
     }
 
     addEventListener(){
-        $('.clay').click( this.checkResources );
+        $('.clay').click(this.checkResources);
         // $('.food').click( this.checkResources );
         $('.wood').click( this.checkResources );
         $('.stone').click( this.checkResources );
@@ -63,29 +63,36 @@ class Game {
 
     }
     checkResources(){
+        
         // var count = $(event.currentTarget)[0].childNodes[1].textContent;
+        // console.log($(event.currentTarget).children().attr('class'));
+        var resource = $(event.currentTarget).children().attr('class');
+        console.log(this.resources[1]);
+        console.log(this.players[this.playerTurnIndex].storageCount);
         var count = $(event.currentTarget).children().text();
         var clayCount= this.resources[0].clay;
         var resourceName = $(event.currentTarget)[0].className;
-        if (resourceName === 'clay' && this.resources[0].clay > 0 && this.players[this.playerTurnIndex].storageCount > 0 && this.resources[0].limit > 0){
-            this.resourceClicked( resourceName );
-        } else if (resourceName === 'wood' && this.resources[0].clay > 0 && this.players[this.playerTurnIndex].storageCount > 0 && this.resources[0].limit > 0){
-            this.resourceClicked( resourceName );
-        }   else if (resourceName === 'stone' && this.resources[0].clay > 0 && this.players[this.playerTurnIndex].storageCount > 0 && this.resources[0].limit > 0){
-            this.resourceClicked( resourceName );
+        debugger;
+        if (resourceName === 'clay' && this.resources[0][resource] > 0 && this.players[this.playerTurnIndex].storageCount > 0 && this.resources[0].limit){
+            this.resourceClicked( resourceName , 0);
+        } else if (resourceName === 'wood' && this.resources[1][resource] > 0 && this.players[this.playerTurnIndex].storageCount > 0 && this.resources[1].limit){
+            this.resourceClicked( resourceName , 1 );
+        }   else if (resourceName === 'stone' && this.resources[2][resource] > 0 && this.players[this.playerTurnIndex].storageCount > 0 && this.resources[2].limit){
+            this.resourceClicked( resourceName , 2);
         }  
     }
-    resourceClicked( resource ){
-        console.log(this.resources[0]);
+    resourceClicked( resource , index ){
+        // console.log(this.resources[0]);
         // this.resources[0].clay = this.resources[0].clay;
-        this.resources[0][resource] = this.resources[0][resource] - 1;
-        $(".resources").find('span.'+resource).text(this.resources[0][resource]);
+        this.resources[index][resource] = this.resources[index][resource] - 1;
+        this.resources[index].limit = this.resources[index].limit - 1
+        $(".resources").find('span.'+resource).text(this.resources[index][resource]);
         // $(event.currentTarget).children().text(this.resources[0][resource]);
         // this.resources[0].limit--;
         // this.players[this.playerTurnIndex].storage[resource]++;
         // this.players[this.playerTurnIndex].pioneers--;
         // this.players[this.playerTurnIndex].storageCount--;
-        this.players[this.playerTurnIndex].updateStats(resource, 1, -1)
+        this.players[this.playerTurnIndex].updateStats(resource, 1, -1);
         this.gotoNextPlayer();
         
     }
