@@ -23,7 +23,19 @@ class Player{
         this.playerArea.find('.'+resource).text(this.storage[resource]);
         this.playerArea.find('.storage').text(this.storageCount);
     }
-
+    updatePerBuilding ( resource, delta, points, workerAdjust){
+        if(workerAdjust!==undefined){
+            this.pioneers+=workerAdjust;
+        }
+        this.storage[resource]-=delta;
+        this.storageCount+=delta;
+        this.victoryPoint+=points;
+        // DOM manipulation
+        this.playerArea.find('.pioneers').text(this.pioneers);
+        this.playerArea.find('.'+resource).text(this.storage[resource]);
+        this.playerArea.find('.storage').text(this.storageCount);
+        this.playerArea.find('.points').text(this.victoryPoint);
+    }
     render(){
         this.playerArea = $("#playerDom").clone();
         this.playerArea.css({

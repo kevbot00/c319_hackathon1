@@ -49,13 +49,8 @@ body{
   flex-wrap: wrap;
 }
 
-.card{
+.building1, .building2, .building3, .cardStatic{
   cursor: pointer;
-  height: 100%;
-  width: 100%;
-}
-
-.card, .cardStatic{
   top: 20%;
   left: 20%;
   height: 60%;

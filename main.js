@@ -18,6 +18,7 @@ var resources = [{
 var buildings = [
 {
     name: 'farm',
+    points: 100,
     requirements:{
         clay: 1,
         wood: 1
@@ -25,13 +26,15 @@ var buildings = [
 },
 {
     name: 'barn',
+    points: 100,
     requirements: {
         wood: 1,
-        stone: 1
+        clay: 1
     }
 },
 {
     name: 'wheelbarrow',
+    points: 100,
     requirements:{
         clay: 1,
         wood: 1
@@ -39,9 +42,10 @@ var buildings = [
 },
 {
     name: 'windmill',
+    points: 100,
     requirements: {
         wood: 1,
-        stone: 1
+        clay: 1
     }
 }
 ];

@@ -39,13 +39,29 @@ class Game {
     }
 
     checkRequirement(){
-        if (this.playerTurnIndex === 0){
-            this.gameBoard.checkRequirements( this.player1, $(event.currentTarget));
-        } else {
-            this.gameBoard.checkRequirements( this.player2, $(event.currentTarget));
-        }
-    }
+        var buildingClicked = $(event.currentTarget).attr('class');
+        var buildingData = this.gameBoard.checkRequirements( this.players[this.playerTurnIndex], $(event.currentTarget).attr('class'));
 
+        if (buildingData) {
+            this.updateAll(buildingData);
+            this.gameBoard.buildings[buildingClicked] = null;
+        }
+        
+    }
+    updateAll(buildingData){
+        for (var key in buildingData.requirements) {
+            this.players[this.playerTurnIndex].updatePerBuilding( key, buildingData.requirements[key], buildingData.points[key], -1 );
+            console.log( this.players[this.playerTurnIndex] )
+
+            this.resources[key] += buildingData.requirements[key];
+        }
+        this.gameBoard.buildings.buildingClicked = null;
+
+        console.log(this.gameBoard.buildings.buildingClicked );
+        console.log( this.players[this.playerTurnIndex]);
+
+
+    }
     checkResources(){
         // var count = $(event.currentTarget)[0].childNodes[1].textContent;
         var count = $(event.currentTarget).children().text();
