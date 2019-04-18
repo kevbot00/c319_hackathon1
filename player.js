@@ -17,10 +17,7 @@ class Player{
     }
 
     updateStats( resource, delta, workerAdjust ){
-<<<<<<< HEAD
         // debugger;
-=======
->>>>>>> 1d2b6d5d4ccb426df1776d4312550a2f4ad27c90
         if(workerAdjust!==undefined){
             this.pioneers+=workerAdjust;
         }
