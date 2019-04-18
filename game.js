@@ -36,8 +36,12 @@ class Game {
 
     checkBuildingRequirement(){
         var buildingClicked = $(event.currentTarget).attr('class');
-        var buildingData = this.gameBoard.checkRequirements( this.players[this.playerTurnIndex], $(event.currentTarget).attr('class'));
+        if (this.gameBoard.buildings.buildingClicked === null) {
+            console.log('This building is gone!');
+            return;
+        }
 
+        var buildingData = this.gameBoard.checkRequirements( this.players[this.playerTurnIndex], $(event.currentTarget).attr('class'));
         if (buildingData) {
             this.updateAll(buildingData);
             this.gameBoard.buildings[buildingClicked] = null;
@@ -53,6 +57,7 @@ class Game {
         var tokenValue = this.tokens.pop();
         this.players[this.playerTurnIndex].addBuildingsMade( buildingData.points, tokenValue, -1 );
         this.gameBoard.buildings.buildingClicked = null;
+        $(event.currentTarget).children().fadeOut(500);
     }
     updateBuyback( key, buildingData){
         var index = null;

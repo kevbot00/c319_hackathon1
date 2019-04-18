@@ -63,6 +63,7 @@ class Player{
         this.playerArea.find('.pioneers').text(this.pioneers);
         this.playerArea.find('.'+resource).text(this.storage[resource]);
         this.playerArea.find('.buildings').text(this.buildingsMade);
+        this.playerArea.find('.tokens').text(this.tokenCount);
         this.playerArea.find('.storage').text(this.storageCount);
         this.playerArea.find('.points').text(this.victoryPoint);
     }

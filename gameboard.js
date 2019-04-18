@@ -28,18 +28,26 @@ class Gameboard{
         this.buildings.building3 = this.sourceBuildings.pop();
     }
 
-    addBuildingsToDom( building1, building2, building3 ){
-        var newDiv = $('<div>')
+    addBuildingsToDom(){
+        for (var building in this.buildings) {
+            var resources = '';
+            var req = this.buildings[building].requirements;
+            for (var x in req){
+                resources = x;
+            }
+            
+            var pointVal = $('<div>').text('Points: ' + this.buildings[building].points);
+            var requirements = $('<div>').text('Requires: ' + resources);
+
+            var newDiv = $('<div>')
             .addClass('babyDiv')
-            .css('background-color', 'green')
-            .text('Points: 3');
-        $('.building1').append(newDiv);
+            .css({'background-color': 'green', 'height': '100%'})
+            .append(pointVal, requirements)
+            $('.'+building).append(newDiv);
+        }
     }
 
     checkRequirements( player , building ){
-        if (this.buildings.building === null) {
-            return;
-        }
 
         var buildingReq = this.buildings[building].requirements;
         for (var key in buildingReq){
