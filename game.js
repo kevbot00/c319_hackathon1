@@ -42,16 +42,16 @@ class Game {
             this.updateAll(buildingData);
             this.gameBoard.buildings[buildingClicked] = null;
         }
-        
+
     }
     updateAll( buildingData ){
-        debugger;
         for (var key in buildingData.requirements) {
-            this.players[this.playerTurnIndex].updatePerBuilding( key, buildingData.requirements[key], buildingData.points, -1 );
+            this.players[this.playerTurnIndex].updatePerBuilding( key, buildingData.requirements[key] );
             this.updateBuyback(key, buildingData.requirements);
             
         }
-        this.players[this.playerTurnIndex].addBuildingsMade();
+        var tokenValue = this.tokens.pop();
+        this.players[this.playerTurnIndex].addBuildingsMade( buildingData.points, tokenValue, -1 );
         this.gameBoard.buildings.buildingClicked = null;
     }
     updateBuyback( key, buildingData){
