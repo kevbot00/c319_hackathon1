@@ -44,7 +44,7 @@ class Game {
             this.resourceClicked( resourceName , 1 );
         }   else if (resourceName === 'stone' && this.resources[2][resource] > 0 && this.players[this.playerTurnIndex].storageCount > 0 && this.resources[2].limit){
             this.resourceClicked( resourceName , 2);
-        }  else if (resourceName === 'food' && this.resources[3][resource] > 0 && this.players[this.playerTurnIndex].storageCount > 0 && this.resources[2].limit){
+        }  else if (resourceName === 'food' && this.resources[3][resource] > 0 && this.players[this.playerTurnIndex].storageCount > 0 && this.resources[3].limit){
             this.resourceClicked( resourceName , 3);
         }
     }
@@ -59,10 +59,8 @@ class Game {
     }
 
     checkBuildingRequirement(){
-        // debugger;
         var buildingClicked = $(event.currentTarget).attr('class');
         var buildingData = this.gameBoard.checkRequirements( this.players[this.playerTurnIndex], $(event.currentTarget).attr('class'));
-
         if (buildingData) {
             this.updateAll(buildingData);
             this.gameBoard.buildings[buildingClicked] = null;
@@ -71,12 +69,14 @@ class Game {
     }
 
     updateAll( buildingData ){
-        // debugger;
+        this.players[this.playerTurnIndex].updatePoints( buildingData.points, this.tokens.pop());
+        this.players[this.playerTurnIndex].updateBuildingWorkerAdjust( -1 );
+
         for (var key in buildingData.requirements) {
-            this.players[this.playerTurnIndex].updatePerBuilding( key, buildingData.requirements[key] );
+            this.players[this.playerTurnIndex].updatePerBuilding( key, buildingData.requirements[key]);
             this.updateBuyback(key, buildingData.requirements);
-            
         }
+        
         var tokenValue = this.tokens.pop();
         this.players[this.playerTurnIndex].addBuildingsMade( buildingData.points, tokenValue, -1 );
         this.gameBoard.buildings.buildingClicked = null;
@@ -104,27 +104,24 @@ class Game {
     }
     
     gotoNextPlayer(){
-        // debugger; // if activeplayer === 0 (if both players pioneer = 0 then.,.), reset turn or if building count = 2, check points and declare winner end game and show win
-        console.log('before: ', this.playerTurnIndex);
         if( this.players[0].pioneers === 0 && this.players[1].pioneers === 0 && this.players[0].buildingsMade !== 2 && this.players[1].buildingsMade !== 2 ){
             this.resetTurn();
             this.resetResourceLimit();
+        } else if( this.players[0].buildingsMade === 2 || this.players[0].buildingsMade === 2 ){
+            this.gameWin();
         }
-        //     this.playerTurnIndex = 0;
-        // } else if( this.players[0].pioneers > 0 || this.players[1].pioneers > 0 ){
-        //     this.playerTurnIndex++;
-        // } 
         this.playerTurnIndex++;
         if(this.playerTurnIndex === this.players.length){
             this.playerTurnIndex = 0;
-        } // else if for checking if both pioneers are at 0 and don't let it go below 0
-        // add to 
-        console.log('after: ', this.playerTurnIndex);
+        } 
+    }
+
+    gameWin(){
+        alert('GAME WINNER CONGRATS PLAYER ' + this.players[this.playerTurnIndex].color);
     }
 
     resetTurn(){
         this.gameBoard.resetBuildingCards();
-        console.log(this.players.length);
         for (var i = 0; i < this.players.length; i++){
             this.players[i].resetPlayerPioneer();
         }

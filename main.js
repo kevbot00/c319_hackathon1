@@ -25,7 +25,7 @@ var buildings = [
     points: 100,
     requirements:{
         wood: 1,
-        clay: 1
+        clay: 2
     },
 },
 {
@@ -33,7 +33,7 @@ var buildings = [
     points: 100,
     requirements: {
         wood: 1,
-        clay: 1
+        clay: 2
     }
 },
 {
@@ -41,7 +41,7 @@ var buildings = [
     points: 100,
     requirements:{
         wood: 1,
-        clay: 1
+        clay: 2
     },
 },
 {
@@ -49,7 +49,7 @@ var buildings = [
     points: 100,
     requirements: {
         wood: 1,
-        clay: 1
+        clay: 2
     }
 }
 ];

@@ -17,7 +17,6 @@ class Player{
     }
 
     updateStats( resource, delta, workerAdjust ){
-        // debugger;
         if(workerAdjust!==undefined){
             this.pioneers+=workerAdjust;
         }
@@ -26,21 +25,28 @@ class Player{
         this.renderDomElements( resource );
     }
 
-    addBuildingsMade( buildingValue, tokenValue, workerAdjust ){
-        if(workerAdjust!==undefined){
-            this.pioneers+=workerAdjust;
-        }
+    addBuildingsMade(){
         this.buildingsMade++;
-        this.victoryPoint+=tokenValue + buildingValue;
-        this.tokenCount++;
         this.renderDomElements();
     }
 
     updatePerBuilding ( resource, delta ){
+        
         this.storage[resource]-=delta;
         this.storageCount+=delta;
-        // DOM manipulation
+        
         this.renderDomElements( resource );
+    }
+
+    updatePoints( points , tokens ){
+        this.victoryPoint+=points;
+        this.tokenCount += tokens;
+    }
+
+    updateBuildingWorkerAdjust( workerAdjust ){
+        if(workerAdjust!==undefined){
+            this.pioneers+=workerAdjust;
+        }
     }
 
     resetPlayerPioneer(){
@@ -61,13 +67,8 @@ class Player{
         this.playerArea.find('.pioneers').text(this.pioneers);
         this.playerArea.find('.'+resource).text(this.storage[resource]);
         this.playerArea.find('.buildings').text(this.buildingsMade);
-        this.playerArea.find('.tokens').text(this.tokenCount);
         this.playerArea.find('.storage').text(this.storageCount);
         this.playerArea.find('.points').text(this.victoryPoint);
+        this.playerArea.find('.tokens').text(this.tokenCount);
     }
-
-    //check if buildings made === 2
-        //display winner
-        //reset game
-
 }
