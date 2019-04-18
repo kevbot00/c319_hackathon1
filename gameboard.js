@@ -46,8 +46,8 @@ class Gameboard{
         debugger;
         for (var key in buildingReq){
             if (buildingReq[key] > player.storage[key]){
-              console.log(false);
-              return false;
+                console.log(false);
+                return false;
             }
         }
 
@@ -58,12 +58,6 @@ class Gameboard{
         // decrement pioneers
         // change bulding to null
         //return resources to board
-
-
-<<<<<<< HEAD
-=======
-
->>>>>>> 0bff63d456304a7e9eecbe3158b8a5b84c787425
 
     }
 
