@@ -62,7 +62,7 @@ class Game {
         // debugger;
         var buildingClicked = $(event.currentTarget).attr('class');
         var buildingData = this.gameBoard.checkRequirements( this.players[this.playerTurnIndex], $(event.currentTarget).attr('class'));
-        debugger;
+
         if (buildingData) {
             this.updateAll(buildingData);
             this.gameBoard.buildings[buildingClicked] = null;

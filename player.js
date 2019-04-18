@@ -50,9 +50,9 @@ class Player{
 
     render(){
         this.playerArea = $("#playerDom").clone();
-    
+        
         this.playerArea.css({
-            backgroundColor: 'light'+this.color
+            backgroundColor: 'white',
         });
         return this.playerArea;
     }

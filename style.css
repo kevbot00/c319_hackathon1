@@ -2,25 +2,25 @@ body{
   height: 100vh;
   width: 100vw;
   margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 .gameBoard{
   height: 100%;
   width: 100%;
-  background-color: gray;
+  background: url('images/theriver-bg.jpg') no-repeat;
+  background-size: cover;
 }
 
 .gameArea{
-  height: 75%;
+  height: 70%;
   width: 100%;
-  background-color: fuchsia;
   display: flex;
 }
 
 .resources{
   height: 100%;
   width: 50%;
-  background-color: lightblue;
   display: flex;
   flex-wrap: wrap;
 }
@@ -28,55 +28,73 @@ body{
 .resourceContainer, .buildingsContainer{
   height: 50%;
   width: 50%;
-  display: flex;
+  position: relative;
 }
 
-.clay, .food, .wood, .stone{
-  top: 20%;
-  left: 20%;
-  height: 60%;
-  width: 60%;
-  position: relative;
+.resourceContainer > *{
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  height: 70%;
+  width: 70%;
+  position: absolute;
   border: 2px black solid;
   cursor: pointer;
 }
 
-.buildings{
+.buildingsWrapper {
   height: 100%;
   width: 50%;
-  background-color: lightcoral;
   display: flex;
   flex-wrap: wrap;
+  text-align:center;
+  transition: all .1s ease-in-out;
+}
+.buildingsContainer > *{
+  cursor: pointer;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  height: 70%;
+  width: 70%;
+  position: absolute;
+  box-shadow: 6px 6px 6px 0 rgba(0,0,0,0.5);
+  border-radius: 15px;
+  background: url('images/card-back.jpeg');
+  background-size: cover;
 }
 
-.building1, .building2, .building3, .cardStatic{
-  cursor: pointer;
-  top: 20%;
-  left: 20%;
-  height: 60%;
-  width: 60%;
-  position: relative;
-  border: 3px black solid;
+.buildingsContainer:hover {
+    transform: scale(1.05);
+    cursor: pointer;
 }
 
 .playerArea{
-  height: 25%;
+  height: 30%;
   width: 100%;
-  background-color: blueviolet;
-  display: flex;
-}
-
-.p1, .p2{
-  height: 100%;
-  width: 50%;
   display: flex;
 }
 
 .templateArea{
   display: none;
 }
-
+.playerArea {
+  display: flex;
+  justify-content: flex-end;
+}
 div#playerDom {
   width: 25%;
 }
-
+.colParent {
+  height: 100%;
+  display: flex;
+  justify-content: space-around;
+  background-color: white;
+  border-radius: 20px;
+}
+img {
+  width: 75%;
+}
+.building1, .building2, .building3 {
+  background: url('images/building.png');
+}

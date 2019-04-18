@@ -11,6 +11,7 @@ class Gameboard{
         this.checkRequirements = this.checkRequirements.bind(this);
         this.shuffle( this.sourceBuildings );
         this.dealBuildingCards();
+        this.addBuildingsToDom();
     }
 
     shuffle( thingToShuffle ){
@@ -33,16 +34,18 @@ class Gameboard{
             var resources = '';
             var req = this.buildings[building].requirements;
             for (var x in req){
-                resources = x;
+                resources = req[x] + ' ' + x + ", " + resources;
+                resources = resources.slice(0,-1);
             }
             
             var pointVal = $('<div>').text('Points: ' + this.buildings[building].points);
             var requirements = $('<div>').text('Requires: ' + resources);
+            // var image = $('<img>').attr('src', 'images/building.png');
 
             var newDiv = $('<div>')
             .addClass('babyDiv')
-            .css({'background-color': 'green', 'height': '100%'})
-            .append(pointVal, requirements)
+            .css({'height': '100%'})
+            .append( pointVal, requirements)
             $('.'+building).append(newDiv);
         }
     }
