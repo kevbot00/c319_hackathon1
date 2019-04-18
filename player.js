@@ -16,7 +16,10 @@ class Player{
         this.playerArea = null;
     }
 
-    updateStats( resource, delta ){
+    updateStats( resource, delta, workerAdjust ){
+        if(workerAdjust!==undefined){
+            this.pioneers+=workerAdjust;
+        }
         this.storage[resource]+=delta;
         this.storageCount-=delta;
         this.renderDomElements( resource );
