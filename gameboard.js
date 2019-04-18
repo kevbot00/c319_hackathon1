@@ -35,7 +35,7 @@ class Gameboard{
 
     checkRequirements( player , building ){
         var matchedProduction = [];
-        console.log(player, building );
+        // console.log(player, building );
         // for (var key in this.building1.requirements){
         //     console.log(key);
         //     for (var key in player.storage)
