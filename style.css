@@ -92,8 +92,9 @@ div#playerDom {
   background-color: white;
   border-radius: 20px;
 }
-img {
+.playerArea img {
   width: 75%;
+  height: 100%;
 }
 .building1, .building2, .building3 {
   background: url('images/building.png');

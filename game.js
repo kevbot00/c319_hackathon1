@@ -53,6 +53,7 @@ class Game {
         this.resources[index][resource] = this.resources[index][resource] - 1;
         this.resources[index].limit = this.resources[index].limit - 1;
         $(".resources").find('span.'+resource).text(this.resources[index][resource]);
+        $(".resources").find('span.'+resource+'limit').text(this.resources[index].limit);
         this.players[this.playerTurnIndex].updateStats(resource, 1, -1);
         this.gotoNextPlayer();
         
