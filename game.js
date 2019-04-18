@@ -62,7 +62,7 @@ class Game {
         // debugger;
         var buildingClicked = $(event.currentTarget).attr('class');
         var buildingData = this.gameBoard.checkRequirements( this.players[this.playerTurnIndex], $(event.currentTarget).attr('class'));
-        debugger;
+        // debugger;
         if (buildingData) {
             this.updateAll(buildingData);
             this.gameBoard.buildings[buildingClicked] = null;
@@ -109,17 +109,19 @@ class Game {
         if( this.players[0].pioneers === 0 && this.players[1].pioneers === 0 && this.players[0].buildingsMade !== 2 && this.players[1].buildingsMade !== 2 ){
             this.resetTurn();
             this.resetResourceLimit();
+        } else if( this.players[0].buildingsMade === 2 || this.players[0].buildingsMade === 2 ){
+            this.gameWin();
         }
-        //     this.playerTurnIndex = 0;
-        // } else if( this.players[0].pioneers > 0 || this.players[1].pioneers > 0 ){
-        //     this.playerTurnIndex++;
-        // } 
         this.playerTurnIndex++;
         if(this.playerTurnIndex === this.players.length){
             this.playerTurnIndex = 0;
         } // else if for checking if both pioneers are at 0 and don't let it go below 0
         // add to 
         console.log('after: ', this.playerTurnIndex);
+    }
+
+    gameWin(){
+        alert('GAME WINNER CONGRATS PLAYER ' + this.players[this.playerTurnIndex].color);
     }
 
     resetTurn(){
