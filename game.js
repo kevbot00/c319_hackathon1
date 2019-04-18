@@ -1,3 +1,5 @@
+//jshint esversion:6;
+
 class Game {
     constructor( resources, buildings, tokens) {
         this.resources = resources;
@@ -36,22 +38,24 @@ class Game {
     }
 
     checkResources(){
+        debugger;
         var resource = $(event.currentTarget).children().attr('class');
         var resourceName = $(event.currentTarget)[0].className;
-        if (resourceName === 'clay' && this.resources[0][resource] > 0 && this.players[this.playerTurnIndex].storageCount > 0 && this.resources[0].limit){
-            this.resourceClicked( resourceName , 0);
-        } else if (resourceName === 'wood' && this.resources[1][resource] > 0 && this.players[this.playerTurnIndex].storageCount > 0 && this.resources[1].limit){
-            this.resourceClicked( resourceName , 1 );
-        }   else if (resourceName === 'stone' && this.resources[2][resource] > 0 && this.players[this.playerTurnIndex].storageCount > 0 && this.resources[2].limit){
-            this.resourceClicked( resourceName , 2);
-        }  else if (resourceName === 'food' && this.resources[3][resource] > 0 && this.players[this.playerTurnIndex].storageCount > 0 && this.resources[3].limit){
-            this.resourceClicked( resourceName , 3);
+        if (resource === 'clay' && this.resources[0][resource] > 0 && this.players[this.playerTurnIndex].storageCount > 0 && this.resources[0].limit){
+            this.resourceClicked( resource , 0);
+        } else if (resource === 'wood' && this.resources[1][resource] > 0 && this.players[this.playerTurnIndex].storageCount > 0 && this.resources[1].limit){
+            this.resourceClicked( resource , 1 );
+        }   else if (resource === 'stone' && this.resources[2][resource] > 0 && this.players[this.playerTurnIndex].storageCount > 0 && this.resources[2].limit){
+            this.resourceClicked( resource , 2);
+        }  else if (resource === 'food' && this.resources[3][resource] > 0 && this.players[this.playerTurnIndex].storageCount > 0 && this.resources[3].limit){
+            this.resourceClicked( resource , 3);
         }
     }
 
     resourceClicked( resource , index ){
         this.resources[index][resource] = this.resources[index][resource] - 1;
         this.resources[index].limit = this.resources[index].limit - 1;
+        console.log(this.resources[index].limit);
         $(".resources").find('span.'+resource).text(this.resources[index][resource]);
         this.players[this.playerTurnIndex].updateStats(resource, 1, -1);
         this.gotoNextPlayer();
@@ -59,27 +63,26 @@ class Game {
     }
 
     checkBuildingRequirement(){
+
         var buildingClicked = $(event.currentTarget).attr('class');
-        var buildingData = this.gameBoard.checkRequirements( this.players[this.playerTurnIndex], $(event.currentTarget).attr('class'));
-        if (buildingData) {
+        var buildingData = this.gameBoard.checkRequirements( this.players[this.playerTurnIndex], buildingClicked);
+        if (buildingData && buildingClicked) {
+            // debugger;
             this.updateAll(buildingData);
-            this.gameBoard.buildings[buildingClicked] = null;
+            this.gameBoard.clickedBuildingCards(buildingClicked);
+            this.gotoNextPlayer();
         }
-        this.gotoNextPlayer();
     }
 
     updateAll( buildingData ){
         this.players[this.playerTurnIndex].updatePoints( buildingData.points, this.tokens.pop());
         this.players[this.playerTurnIndex].updateBuildingWorkerAdjust( -1 );
-
         for (var key in buildingData.requirements) {
             this.players[this.playerTurnIndex].updatePerBuilding( key, buildingData.requirements[key]);
             this.updateBuyback(key, buildingData.requirements);
         }
-        
         var tokenValue = this.tokens.pop();
         this.players[this.playerTurnIndex].addBuildingsMade( buildingData.points, tokenValue, -1 );
-        this.gameBoard.buildings.buildingClicked = null;
         $(event.currentTarget).children().fadeOut(500);
     }
 
@@ -104,9 +107,12 @@ class Game {
     }
     
     gotoNextPlayer(){
+        debugger;
         if( this.players[0].pioneers === 0 && this.players[1].pioneers === 0 && this.players[0].buildingsMade !== 2 && this.players[1].buildingsMade !== 2 ){
             this.resetTurn();
             this.resetResourceLimit();
+            debugger;
+            this.gameBoard.resetBuildingCards();
         } else if( this.players[0].buildingsMade === 2 || this.players[0].buildingsMade === 2 ){
             this.gameWin();
         }
@@ -121,7 +127,7 @@ class Game {
     }
 
     resetTurn(){
-        this.gameBoard.resetBuildingCards();
+        // this.gameBoard.resetBuildingCards();
         for (var i = 0; i < this.players.length; i++){
             this.players[i].resetPlayerPioneer();
         }
@@ -132,8 +138,10 @@ class Game {
 
     resetResourceLimit(){
         for (var key in this.resources){
-            this.resources[key].limit = 2;
+            this.resources[key].limit = 4;
+            this.resources[3].limit = Infinity;
         }
+        
     }
 
 }
