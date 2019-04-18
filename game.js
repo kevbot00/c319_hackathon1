@@ -35,6 +35,7 @@ class Game {
     }
 
     checkBuildingRequirement(){
+        // debugger;
         var buildingClicked = $(event.currentTarget).attr('class');
         var buildingData = this.gameBoard.checkRequirements( this.players[this.playerTurnIndex], $(event.currentTarget).attr('class'));
 
@@ -42,10 +43,10 @@ class Game {
             this.updateAll(buildingData);
             this.gameBoard.buildings[buildingClicked] = null;
         }
-        
+        this.gotoNextPlayer();
     }
     updateAll( buildingData ){
-        debugger;
+        // debugger;
         for (var key in buildingData.requirements) {
             this.players[this.playerTurnIndex].updatePerBuilding( key, buildingData.requirements[key], buildingData.points, -1 );
             this.updateBuyback(key, buildingData.requirements);
@@ -92,10 +93,22 @@ class Game {
         
     }
     gotoNextPlayer(){
+        // debugger; // if activeplayer === 0 (if both players pioneer = 0 then.,.), reset turn or if building count = 2, check points and declare winner end game and show win
+        console.log('before: ', this.playerTurnIndex);
+        if( this.players[0].pioneers === 0 && this.players[1].pioneers === 0 && this.players[0].buildingsMade !== 2 && this.players[1].buildingsMade !== 2 ){
+            this.resetTurn();
+            this.resetResourceLimit();
+        }
+        //     this.playerTurnIndex = 0;
+        // } else if( this.players[0].pioneers > 0 || this.players[1].pioneers > 0 ){
+        //     this.playerTurnIndex++;
+        // } 
         this.playerTurnIndex++;
         if(this.playerTurnIndex === this.players.length){
             this.playerTurnIndex = 0;
-        }
+        } // else if for checking if both pioneers are at 0 and don't let it go below 0
+        // add to 
+        console.log('after: ', this.playerTurnIndex);
     }
 
     resetTurn(){

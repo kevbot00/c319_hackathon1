@@ -4,7 +4,7 @@ class Player{
         this.victoryPoint = 0;
         this.tokenCount = 0;
         this.buildingsMade = 0;
-        this.storageCount = 2;
+        this.storageCount = 4;
         this.maxPioneers = 2;
         this.pioneers = 2;
         this.storage = {
@@ -16,7 +16,7 @@ class Player{
     }
 
     updateStats( resource, delta, workerAdjust ){
-        debugger;
+        // debugger;
         if(workerAdjust!==undefined){
             this.pioneers+=workerAdjust;
         }
@@ -34,7 +34,6 @@ class Player{
     }
 
     updatePerBuilding ( resource, delta, points, workerAdjust){
-        debugger;
         if(workerAdjust!==undefined){
             this.pioneers+=workerAdjust;
         }
