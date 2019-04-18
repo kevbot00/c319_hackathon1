@@ -111,10 +111,9 @@ class Game {
             this.resetTurn();
             this.resetResourceLimit();
             this.gameBoard.resetBuildingCards();
-        } else if( this.players[0].buildingsMade === 2 || this.players[0].buildingsMade === 2 ){
+        } else if( this.players[0].buildingsMade === 2 || this.players[1].buildingsMade === 2 ){
             var message = '';
-
-            if( this.players[0].victoryPoint + this.players[0].tokenCount > this.players[1].victoryPoint + this.players[2].tokenCount ){
+            if( this.players[0].victoryPoint + this.players[0].tokenCount > this.players[1].victoryPoint + this.players[1].tokenCount ){
                 message = 'Player 1';    
             } else {
                 message = 'Player 2';
