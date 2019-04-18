@@ -26,11 +26,7 @@ class Game {
         // $('.food').click( this.checkResources );
         $('.wood').click( this.checkResources );
         $('.stone').click( this.checkResources );
-<<<<<<< HEAD
-        // $('.building1').click( this.gameBoard );
-        // $('.building2').click( this.gameBoard. );
-        // $('.building3').click( this.gameBoard. );
-=======
+
         $('.building1').click( this.checkRequirement);
         $('.building2').click( this.checkRequirement );
         $('.building3').click( this.checkRequirement );
@@ -42,7 +38,7 @@ class Game {
         } else {
             this.gameBoard.checkRequirements( this.player2, $(event.currentTarget));
         }
->>>>>>> 2568eb4e46a13df53aac6a39dda33b2f59ad5368
+
     }
 
     checkResources(){
