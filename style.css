@@ -99,3 +99,31 @@ div#playerDom {
 .building1, .building2, .building3 {
   background: url('images/building.png');
 }
+
+
+.congrats-modal {
+  width: 100vw;
+  height: 100vh;
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0; 
+  text-align: center;
+  background-color:white;
+}
+.congrats-modal img {
+  width: 100%;
+}
+.congrats-modal div {
+  font-size: 1.75em;
+}
+.congrats-modal p {
+  font-size: 1em;
+  color: #cd0000;
+}
+.congrats-modal-inner {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}

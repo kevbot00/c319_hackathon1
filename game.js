@@ -118,7 +118,7 @@ class Game {
     }
 
     gameWin(){
-        alert('GAME WINNER CONGRATS PLAYER ' + this.players[this.playerTurnIndex].color);
+        $('.congrats-modal').fadeIn();
     }
 
     resetTurn(){
