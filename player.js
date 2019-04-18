@@ -58,7 +58,7 @@ class Player{
         this.playerArea = $("#playerDom").clone();
         
         this.playerArea.css({
-            backgroundColor: 'white',
+            backgroundColor: 'light'+this.color,
         });
         return this.playerArea;
     }
