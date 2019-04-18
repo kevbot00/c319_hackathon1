@@ -10,14 +10,10 @@ class Game {
 
         // false = player1 turn, true = player2 turn
         this.playerTurnIndex = 0;
-        
         this.addEventListener = this.addEventListener.bind(this);
         this.checkResources = this.checkResources.bind(this);
         this.checkRequirement = this.checkRequirement.bind(this);
         this.addEventListener();
-
-
-
     }
 
     addPlayer(color){
@@ -29,7 +25,6 @@ class Game {
 
     addEventListener(){
         $('.clay').click(this.checkResources);
-        // $('.food').click( this.checkResources );
         $('.wood').click( this.checkResources );
         $('.stone').click( this.checkResources );
 
@@ -51,28 +46,37 @@ class Game {
     updateAll(buildingData){
         for (var key in buildingData.requirements) {
             this.players[this.playerTurnIndex].updatePerBuilding( key, buildingData.requirements[key], buildingData.points[key], -1 );
-            console.log( this.players[this.playerTurnIndex] )
-
-            this.resources[key] += buildingData.requirements[key];
+            // console.log( this.players[this.playerTurnIndex]);
+            this.updateBuyback(key, buildingData.requirements);
+            // (".resources").find('span.'+buildingData).text(this.resources[index][resource]);
         }
         this.gameBoard.buildings.buildingClicked = null;
 
-        console.log(this.gameBoard.buildings.buildingClicked );
-        console.log( this.players[this.playerTurnIndex]);
-
-
+        console.log('building requirements',this.gameBoard.buildings.buildingClicked );
+        console.log('player storage after buy', this.players[this.playerTurnIndex]);
     }
+    updateBuyback( key, buildingData ){
+        switch(key){
+            case 'clay':
+                this.resources[0].clay += buildingData[key];
+                break;
+            case 'wood':
+                this.resources[1].wood += buildingData[key];
+                break;
+            case 'stone':
+                this.resources[2].stone += buildingData[key];
+                break;
+        }
+    }
+
+
     checkResources(){
-        
-        // var count = $(event.currentTarget)[0].childNodes[1].textContent;
-        // console.log($(event.currentTarget).children().attr('class'));
         var resource = $(event.currentTarget).children().attr('class');
-        console.log(this.resources[1]);
-        console.log(this.players[this.playerTurnIndex].storageCount);
+        // console.log(this.resources[1]);
+        // console.log(this.players[this.playerTurnIndex].storageCount);
         var count = $(event.currentTarget).children().text();
         var clayCount= this.resources[0].clay;
         var resourceName = $(event.currentTarget)[0].className;
-        debugger;
         if (resourceName === 'clay' && this.resources[0][resource] > 0 && this.players[this.playerTurnIndex].storageCount > 0 && this.resources[0].limit){
             this.resourceClicked( resourceName , 0);
         } else if (resourceName === 'wood' && this.resources[1][resource] > 0 && this.players[this.playerTurnIndex].storageCount > 0 && this.resources[1].limit){
@@ -82,16 +86,9 @@ class Game {
         }  
     }
     resourceClicked( resource , index ){
-        // console.log(this.resources[0]);
-        // this.resources[0].clay = this.resources[0].clay;
         this.resources[index][resource] = this.resources[index][resource] - 1;
         this.resources[index].limit = this.resources[index].limit - 1
         $(".resources").find('span.'+resource).text(this.resources[index][resource]);
-        // $(event.currentTarget).children().text(this.resources[0][resource]);
-        // this.resources[0].limit--;
-        // this.players[this.playerTurnIndex].storage[resource]++;
-        // this.players[this.playerTurnIndex].pioneers--;
-        // this.players[this.playerTurnIndex].storageCount--;
         this.players[this.playerTurnIndex].updateStats(resource, 1, -1);
         this.gotoNextPlayer();
         
@@ -103,8 +100,4 @@ class Game {
         }
     }
 
-
-    render(){
-
-    }
 }

@@ -72,6 +72,6 @@ body{
   display: flex;
 }
 
-#templateArea{
+.templateArea{
   display: none;
 }

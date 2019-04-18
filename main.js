@@ -56,5 +56,4 @@ var tokens = [1,2,3,4,5,6];
 function startApp(){
     game = new Game( resources, buildings, tokens);
     // game.startGame();
-    game.render();
 }
