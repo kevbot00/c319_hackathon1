@@ -122,7 +122,7 @@ class Game {
         this.playerTurnIndex++;
         if(this.playerTurnIndex === this.players.length){
             this.playerTurnIndex = 0;
-        } 
+        }
     }
 
     gameWin(){
