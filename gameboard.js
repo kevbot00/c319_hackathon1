@@ -60,15 +60,18 @@ class Gameboard{
                 return false;
             } else if (player.storage.food){
                 if (buildingReq[key] > player.storage.food){
-                    buildingReq.food += buildingReq[key] - player.storage.food + foodCount || 1;
-                    foodCount += buildingReq[key] - player.storage.food || 1;
-                    buildingReq[key] -= buildingReq[key];
+                    buildingReq.food = buildingReq[key] - player.storage.food;
+                    foodCount = buildingReq[key] - player.storage.food;
+                    player.storage.food -= buildingReq[key] - player.storage.food || 1;
+                    buildingReq[key] -= foodCount|| 1;
+                } else if (buildingReq[key] === player.storage[key]){
+                    // necessary to exit out of conditional
                 } else {
                     buildingReq.food = buildingReq[key] + currentFoodCount;
                     currentFoodCount = buildingReq[key];
                     foodCount += buildingReq[key] || 1;
                     buildingReq[key] -= buildingReq[key];
-                } 
+                }
                 player.storage.food -= foodCount;
                 foodCount = 0;
             }

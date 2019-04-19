@@ -134,11 +134,9 @@ class Game {
     }
 
     resetTurn(){
-        // this.gameBoard.resetBuildingCards();
         for (var i = 0; i < this.players.length; i++){
             this.players[i].resetPlayerPioneer();
         }
-        //reset resources limit
         this.resetResourceLimit();
     }
 
