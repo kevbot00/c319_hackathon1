@@ -55,21 +55,24 @@ class Gameboard{
             return;
         }
         var foodCount = 0;
+        var currentFoodCount = 0;
         var buildingReq = this.buildings[building].requirements;
         for (var key in buildingReq){
             if (buildingReq[key] > player.storage[key] + player.storage.food){
                 return false;
             } else if (player.storage.food){
                 if (buildingReq[key] > player.storage.food){
-                    buildingReq.food = buildingReq[key] - player.storage.food + foodCount || 1;
+                    buildingReq.food += buildingReq[key] - player.storage.food + foodCount || 1;
                     foodCount += buildingReq[key] - player.storage.food || 1;
                     buildingReq[key] -= buildingReq[key] - foodCount || 1;
                 } else {
-                    buildingReq.food = player.storage.food - buildingReq[key] + foodCount || 1;
-                    foodCount += player.storage.food - buildingReq[key] || 1;
-                    buildingReq[key] -= buildingReq[key] - foodCount || 1;
+                    buildingReq.food = buildingReq[key] + currentFoodCount;
+                    currentFoodCount = buildingReq[key];
+                    foodCount += buildingReq[key] || 1;
+                    buildingReq[key] -= buildingReq[key];
                 } 
-                player.storage.food = buildingReq.food;
+                player.storage.food -= foodCount;
+                foodCount = 0;
             }
         }
         player.storage.food = foodCount;

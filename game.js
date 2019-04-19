@@ -1,5 +1,3 @@
-//jshint esversion:6;
-
 class Game {
     constructor( resources, buildings, tokens) {
         this.resources = resources;
