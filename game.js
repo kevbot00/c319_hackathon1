@@ -123,7 +123,12 @@ class Game {
         this.playerTurnIndex++;
         if(this.playerTurnIndex === this.players.length){
             this.playerTurnIndex = 0;
-        }
+            $('span.blue').text('Player 1 Turn');
+            $('span.yellow').text('Player 2');
+            return;
+        } 
+        $('span.yellow').text('Player 2 Turn');
+        $('span.blue').text('Player 1');
     }
 
     gameWin(message){
