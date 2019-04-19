@@ -31,10 +31,13 @@ class Player{
     }
 
     updatePerBuilding ( resource, delta ){
-        
-        this.storage[resource]-=delta;
-        this.storageCount+=delta;
-        
+        if (resource === 'food'){
+            this.storageCount+=delta;
+
+        } else {
+            this.storage[resource]-=delta;
+            this.storageCount+=delta;
+        }
         this.renderDomElements( resource );
     }
 
