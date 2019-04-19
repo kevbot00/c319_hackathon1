@@ -41,7 +41,7 @@ var buildings = [
     points: 100,
     requirements:{
         wood: 1,
-        clay: 2
+        stone: 1
     },
 },
 {
@@ -56,7 +56,7 @@ var buildings = [
     name: 'windmill',
     points: 100,
     requirements: {
-        wood: 1,
+        stone: 1,
         clay: 2
     }
 },
