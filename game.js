@@ -7,15 +7,12 @@ class Game {
         this.players = [];
         this.addPlayer('blue');
         this.addPlayer('yellow');
-
-        // false = player1 turn, true = player2 turn
         this.playerTurnIndex = 0;
         this.addEventListener = this.addEventListener.bind(this);
         this.checkResources = this.checkResources.bind(this);
         this.checkBuildingRequirement = this.checkBuildingRequirement.bind(this);
         this.addEventListener();
     }
-
 
     addPlayer(color){
         var playerObj = new Player(color);
@@ -29,11 +26,9 @@ class Game {
         $('.wood').click( this.checkResources );
         $('.stone').click( this.checkResources );
         $('.food').click( this.checkResources );
-
         $('.building1').click( this.checkBuildingRequirement );
         $('.building2').click( this.checkBuildingRequirement );
         $('.building3').click( this.checkBuildingRequirement );
-
         $('.reset-button').click( this.gameRefresh );
     }
 
@@ -59,7 +54,6 @@ class Game {
         $(".resources").find('span.'+resource+'limit').text(this.resources[index].limit);
         this.players[this.playerTurnIndex].updateStats(resource, 1, -1);
         this.gotoNextPlayer();
-        
     }
 
     checkBuildingRequirement(){
@@ -134,9 +128,11 @@ class Game {
         $('.congrats-modal').fadeIn();
  
     }
+
     gameRefresh(){
         location.reload();
     }
+
     resetTurn(){
         // this.gameBoard.resetBuildingCards();
         for (var i = 0; i < this.players.length; i++){
@@ -144,7 +140,6 @@ class Game {
         }
         //reset resources limit
         this.resetResourceLimit();
-
     }
 
     resetResourceLimit(){
@@ -152,7 +147,5 @@ class Game {
             this.resources[key].limit = 4;
             this.resources[3].limit = Infinity;
         }
-        
     }
-
 }

@@ -40,8 +40,6 @@ class Gameboard{
             }
             var pointVal = $('<div>').text('Points: ' + this.buildings[building].points);
             var requirements = $('<div>').text('Requires: ' + resources);
-            // var image = $('<img>').attr('src', 'images/building.png');
-
             var newDiv = $('<div>')
             .addClass('babyDiv')
             .css({'height': '100%'})
@@ -64,7 +62,7 @@ class Gameboard{
                 if (buildingReq[key] > player.storage.food){
                     buildingReq.food += buildingReq[key] - player.storage.food + foodCount || 1;
                     foodCount += buildingReq[key] - player.storage.food || 1;
-                    buildingReq[key] -= buildingReq[key] - foodCount || 1;
+                    buildingReq[key] -= buildingReq[key];
                 } else {
                     buildingReq.food = buildingReq[key] + currentFoodCount;
                     currentFoodCount = buildingReq[key];
@@ -76,7 +74,6 @@ class Gameboard{
             }
         }
         player.storage.food = foodCount;
-        // this.buildings[building] = null;
         return this.buildings[building];
     }
 
@@ -92,8 +89,6 @@ class Gameboard{
                 }
                 var pointVal = $('<div>').text('Points: ' + this.buildings[key].points);
                 var requirements = $('<div>').text('Requires: ' + resources);
-                // var image = $('<img>').attr('src', 'images/building.png');
-
                 var newDiv = $('<div>')
                 .addClass('babyDiv')
                 .css({'height': '100%'})
@@ -118,17 +113,12 @@ class Gameboard{
             }
             var pointVal = $('<div>').text('Points: ' + this.buildings[building].points);
             var requirements = $('<div>').text('Requires: ' + resources);
-            // var image = $('<img>').attr('src', 'images/building.png');
-
             var newDiv = $('<div>')
             .addClass('babyDiv')
             .css({'height': '100%'})
             .append( pointVal, requirements);
             $('.'+building).append(newDiv);
         }
-        // this.buildings.building1 = this.sourceBuildings.pop();
-        // this.buildings.building2 = this.sourceBuildings.pop();
-        // this.buildings.building3 = this.sourceBuildings.pop();
     }
 
 
