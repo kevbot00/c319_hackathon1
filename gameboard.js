@@ -93,7 +93,7 @@ class Gameboard{
                 .css({'height': '100%'})
                 .append( pointVal, requirements);
                 $('.'+key).append(newDiv);
-                $('.'+key).show();
+                $('.'+key).fadeIn(400);
             }
         }
     }

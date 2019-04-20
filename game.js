@@ -8,6 +8,7 @@ class Game {
         this.addPlayer('blue');
         this.addPlayer('yellow');
         this.playerTurnIndex = 0;
+        this.players[this.playerTurnIndex].makeActive();
         this.addEventListener = this.addEventListener.bind(this);
         this.checkResources = this.checkResources.bind(this);
         this.checkBuildingRequirement = this.checkBuildingRequirement.bind(this);
@@ -78,7 +79,7 @@ class Game {
             this.updateBuyback(key, buildingData.requirements);
         }
         this.players[this.playerTurnIndex].addBuildingsMade( buildingData.points, tokenValue, -1 );
-        $(event.currentTarget).empty().hide();
+        $(event.currentTarget).empty().fadeOut(400);
     }
     updateBuyback( resourceName, buildingData){
         var index = null;
@@ -111,7 +112,7 @@ class Game {
                 highestPlayer = playerI;
             }
         }
-        $('.message').text('Congrats! '+this.players[highestPlayer].name +(highestPlayer+1)+' you have conquered The River!');
+        $('.message').text('Congrats! '+this.players[highestPlayer].name +(highestPlayer+1)+', you have conquered The River!');
         $('.congrats-modal').fadeIn();
     }
     gameRefresh(){
