@@ -13,25 +13,17 @@ class Game {
         this.checkBuildingRequirement = this.checkBuildingRequirement.bind(this);
         this.addEventListener();
     }
-
     addPlayer(color){
         var playerObj = new Player(color);
         var playerDom = playerObj.render();
         this.players.push(playerObj);
         $(".playerArea").append(playerDom);
     }
-
     addEventListener(){
         $('.resourceContainer').click( this.checkResources );
-        // $('.wood').click( this.checkResources );
-        // $('.stone').click( this.checkResources );
-        // $('.food').click( this.checkResources );
         $('.buildingsContainer > div').click( this.checkBuildingRequirement );
-        $('.building2').click( this.checkBuildingRequirement );
-        $('.building3').click( this.checkBuildingRequirement );
         $('.reset-button').click( this.gameRefresh );
     }
-
     checkResources(){
         var resourceName = $(event.currentTarget).attr('data-resource');
         var resource = this.resources[resourceName];
@@ -58,29 +50,16 @@ class Game {
         }
         resource.currentPlayers.push(this.players[this.playerTurnIndex]);
         this.resourceClicked( resourceName , award)
-        // if (resource === 'clay' && this.resources[0][resource] > 0 && this.players[this.playerTurnIndex].storageCount > 0 && this.resources[0].limit){
-        //     this.resourceClicked( resource , 0);
-        // } else if (resource === 'wood' && this.resources[1][resource] > 0 && this.players[this.playerTurnIndex].storageCount > 0 && this.resources[1].limit){
-        //     this.resourceClicked( resource , 1 );
-        // }   else if (resource === 'stone' && this.resources[2][resource] > 0 && this.players[this.playerTurnIndex].storageCount > 0 && this.resources[2].limit){
-        //     this.resourceClicked( resource , 2);
-        // }  else if (resource === 'food' && this.resources[3][resource] > 0 && this.players[this.playerTurnIndex].storageCount > 0 && this.resources[3].limit){
-        //     this.resourceClicked( resource , 3);
-        // }
     }
-
     resourceClicked( resourceName , count ){
         var resource = this.resources[resourceName];
         resource.count-=count;
         console.log(`taking ${count} ${resourceName}, now at ${resource.count}`);
         $('.resourceContainer[data-resource='+resourceName+'] .resourceCount').text( resource.count )
-        // $(".resources").find('span.'+resource).text(this.resources[index][resource]);
         $('.resourceContainer[data-resource='+resourceName+'] .spotCount').text( resource.playerLimit - resource.currentPlayers.length )
-        // $(".resources").find('span.'+resource+'limit').text(this.resources[index].limit);
         this.players[this.playerTurnIndex].updateStats(resourceName, count, -1);
         this.gotoNextPlayer();
     }
-
     checkBuildingRequirement(){
         var buildingClicked = $(event.currentTarget).attr('class');
         var buildingData = this.gameBoard.checkRequirements( this.players[this.playerTurnIndex], buildingClicked);
@@ -90,7 +69,6 @@ class Game {
             this.gotoNextPlayer();
         }
     }
-
     updateAll( buildingData ){
         var tokenValue = this.tokens.pop();
         this.players[this.playerTurnIndex].updatePoints( buildingData.points, tokenValue);
@@ -100,21 +78,17 @@ class Game {
             this.updateBuyback(key, buildingData.requirements);
         }
         this.players[this.playerTurnIndex].addBuildingsMade( buildingData.points, tokenValue, -1 );
-        $(event.currentTarget).children().fadeOut(500);
+        $(event.currentTarget).empty().hide();
     }
-
     updateBuyback( resourceName, buildingData){
         var index = null;
-
         this.resources[resourceName].count += buildingData[resourceName];
-        $('.resourceContainer[data-resource='+resourceName+'] .resourceCount').text( resource.count )
-        //$(".resources").find('span.'+key).text(this.resources[index][key]);
+        $('.resourceContainer[data-resource='+resourceName+'] .resourceCount').text( this.resources[resourceName].count );
     }
-    
     gotoNextPlayer(){
         if( this.players[0].pioneers === 0 && this.players[1].pioneers === 0 && this.players[0].buildingsMade !== 2 && this.players[1].buildingsMade !== 2 ){
             this.resetTurn();
-            this.resetResourceLimit();
+            this.resetResourceLimits();
             this.gameBoard.resetBuildingCards();
         } else if( this.players[this.playerTurnIndex].buildingsMade === 2  ){
             var message = '';
@@ -122,49 +96,39 @@ class Game {
             return;
         }
         this.playerTurnIndex++;
-
         if(this.playerTurnIndex === this.players.length){
             this.playerTurnIndex = 0;
-            // $('span.blue').text('Player 1 Turn');
-            // $('span.yellow').text('Player 2');
-            // return;
         } 
-        // $('span.yellow').text('Player 2 Turn');
-        // $('span.blue').text('Player 1');
         for( var i = 0; i< this.players.length; i++){
             this.players[i].makeInactive();
         }
         this.players[this.playerTurnIndex].makeActive();
     }
-
-    gameWin(message){
+    gameWin(){
         var highestPlayer = 0;
         for( var playerI = 1; playerI < this.players.length; playerI++){
             if(this.players[highestPlayer].getTotalPoints() < this.players[playerI].getTotalPoints()){
                 highestPlayer = playerI;
             }
         }
-        $('.message').text(message + ' congrats! '+this.players[highestPlayer].name +(highestPlayer+1)+' You have conquered The River!');
+        $('.message').text('Congrats! '+this.players[highestPlayer].name +(highestPlayer+1)+' you have conquered The River!');
         $('.congrats-modal').fadeIn();
- 
     }
-
     gameRefresh(){
         location.reload();
     }
-
     resetTurn(){
         for (var i = 0; i < this.players.length; i++){
             this.players[i].resetPlayerPioneer();
         }
-        this.resetResourceLimit();
+        this.resetResourceLimits();
     }
-
-    resetResourceLimit(){
-        debugger;
+    resetResourceLimits(){
         for (var key in this.resources){
             this.resources[key].playerLimit = 2;
+            this.resources[key].currentPlayers = [];
             this.resources.food.playerLimit = Infinity;
+            $('.resourceContainer[data-resource='+key+'] .spotCount').text( this.resources[key].playerLimit );
         }
     }
 }

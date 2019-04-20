@@ -40,43 +40,35 @@ class Player{
         this.buildingsMade++;
         this.renderDomElements();
     }
-
     updatePerBuilding ( resource, delta ){
         if (resource === 'food'){
             this.storageCount+=delta;
-
         } else {
             this.storage[resource]-=delta;
             this.storageCount+=delta;
         }
         this.renderDomElements( resource );
     }
-
     updatePoints( points , tokens ){
         this.victoryPoint+=points;
         this.tokenCount += tokens;
     }
-
     updateBuildingWorkerAdjust( workerAdjust ){
         if(workerAdjust!==undefined){
             this.pioneers+=workerAdjust;
         }
     }
-
     resetPlayerPioneer(){
         this.pioneers = this.maxPioneers;
         this.playerArea.find('.pioneers').text(this.pioneers);
     }
-
     render(){
         this.playerArea = $("#playerDom").clone();
-        
         this.playerArea.css({
             backgroundColor: 'light'+this.color,
         });
         return this.playerArea;
     }
-
     renderDomElements( resource ){
         this.playerArea.find('.pioneers').text(this.pioneers);
         this.playerArea.find('.'+resource).text(this.storage[resource]);
