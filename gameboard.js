@@ -15,7 +15,6 @@ class Gameboard{
         this.dealBuildingCards();
         this.addBuildingsToDom();
     }
-
     shuffle( thingToShuffle ){
         for( var cardI = thingToShuffle.length-1; cardI>0; cardI--){
             var randomIndex = Math.floor(Math.random() * cardI);
@@ -24,14 +23,12 @@ class Gameboard{
             thingToShuffle[cardI] = temp;
         }
     }
-
     dealBuildingCards(){
         this.buildings.building1 = this.sourceBuildings.pop();
         this.buildings.building2 = this.sourceBuildings.pop();
         this.buildings.building3 = this.sourceBuildings.pop();
         this.buildings.building4 = this.sourceBuildings.pop();
     }
-
     addBuildingsToDom(){
         for (var building in this.buildings) {
             var resources = '';
@@ -49,41 +46,7 @@ class Gameboard{
             $('.'+building).append(newDiv);
         }
     }
-
     checkRequirements( player , building ){
-        // if (this.buildings[building] === null) {
-        //     return;
-        // }
-        // var subtractAmounts = {
- 
-        // }
-        // var foodCount = 0;
-        // var currentFoodCount = 0;
-        // var buildingReq = this.buildings[building].requirements;
-        // var foodAvailable = player.getStorage().food;
-        // debugger;
-        // for( var resource in buildingReq){
-        //     if(player.getStorage()[resource] < buildingReq[resource]){
-        //         if(player.getStorage()[resource]+foodAvailable < buildingReq[resource]){
-        //             console.error(`player needed ${buildingReq[resource]}${resource} but only had ${player.getStorage()[resource]}`)
-        //             return false;
-        //         }
- 
-        //         subtractAmounts[resource] = player.getStorage()[resource];
-        //         var foodNeeded = buildingReq[resource] - player.getStorage()[resource]
-        //         console.warn(`player only had ${player.getStorage()[resource]} but needed ${buildingReq[resource]}${resource}, taking ${foodNeeded} food as well`)
-        //         foodAvailable-= foodNeeded;
-        //     } else {
-        //         subtractAmounts[resource] = buildingReq[resource];
-        //     }
- 
-        // }
-        // subtractAmounts.food = foodAvailable;
-        // for( var resource in subtractAmounts){
-        //     player.updateStats(resource, buildingReq[resource], 0);
-        // }
-        // console.log()
-        // return true;
         if (this.buildings[building] === null) {
             return;
         }
@@ -113,7 +76,6 @@ class Gameboard{
         player.storage.food = playerFoodRemaining;
         return this.buildings[building];
     }
-
     resetBuildingCards(){
         for (var key in this.buildings){
             if (this.buildings[key] === null){
@@ -135,7 +97,6 @@ class Gameboard{
             }
         }
     }
-
     clickedBuildingCards( building ){
         this.buildings[building] = null;
     }

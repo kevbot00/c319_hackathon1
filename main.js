@@ -35,7 +35,7 @@ var resources = {
 var buildings = [
 {
     name: 'farm',
-    points: 100,
+    points: 60,
     requirements:{
         wood: 1,
         clay: 2
@@ -43,23 +43,31 @@ var buildings = [
 },
 {
     name: 'barn',
-    points: 100,
+    points: 60,
     requirements: {
-        wood: 1,
+        stone: 1,
         clay: 2
     }
 },
 {
     name: 'wheelbarrow',
-    points: 100,
+    points: 60,
     requirements:{
         wood: 1,
-        clay: 2
+        stone: 2
     },
 },
 {
     name: 'windmill',
-    points: 100,
+    points: 60,
+    requirements: {
+        wood: 1,
+        stone: 2
+    }
+},
+{
+    name: 'windmill',
+    points: 60,
     requirements: {
         wood: 1,
         clay: 2
@@ -67,42 +75,32 @@ var buildings = [
 },
 {
     name: 'windmill',
-    points: 100,
+    points: 60,
     requirements: {
-        wood: 1,
-        clay: 2
+        wood: 2,
+        stone: 1
     }
 },
 {
     name: 'windmill',
-    points: 100,
+    points: 40,
     requirements: {
         wood: 1,
-        clay: 2
+        clay: 1
     }
 },
 {
     name: 'windmill',
-    points: 100,
+    points: 40,
     requirements: {
-        wood: 1,
-        clay: 2
-    }
-},
-{
-    name: 'windmill',
-    points: 100,
-    requirements: {
-        wood: 1,
-        clay: 2
+        stone: 1,
+        clay: 1
     }
 }
 ];
 
 var tokens = [1,2,3,4,5,6];
 
-
 function startApp(){
     game = new Game( resources, buildings, tokens);
-    // game.startGame();
 }
