@@ -2,7 +2,7 @@ body{
   height: 100vh;
   width: 100vw;
   margin: 0;
-  font-family: 'Noto Sans', Arial, Helvetica, sans-serif;
+  font-family: Arial, Helvetica, sans-serif;
 }
 .gameBoard{
   height: 100%;
@@ -25,7 +25,8 @@ body{
   height: 50%;
   width: 50%;
   position: relative;
-  font-size: 1.2em;
+  font-size: 1.7em;
+  font-weight: bolder;
 }
 .resourceContainer > *{
   left: 50%;
@@ -40,9 +41,33 @@ body{
   cursor: pointer;
   background-color: white;
 }
-.resourceContainer img{
-  height: 60%;
-  width: 60%;
+.resourceContainer > div.clay{
+  background: url(images/clay.png) no-repeat;
+  background-size: 60% auto;
+  background-position: center;
+  text-shadow: white 1px 1px 2px;
+  background-color: white;
+}
+.resourceContainer > div.food{
+  background: url(images/food.png) no-repeat;
+  background-size: 60% auto;
+  background-position: center;
+  text-shadow: white 1px 1px 2px;
+  background-color: white;
+}
+.resourceContainer > div.wood{
+  background: url(images/wood.png) no-repeat;
+  background-size: 60% auto;
+  background-position: center;
+  text-shadow: white 1px 1px 2px;
+  background-color: white;
+}
+.resourceContainer > div.stone{
+  background: url(images/stone.png) no-repeat;
+  background-size: 60% auto;
+  background-position: center;
+  text-shadow: white 1px 1px 2px;
+  background-color: white;
 }
 .buildingsWrapper {
   height: 100%;
@@ -60,9 +85,12 @@ body{
   height: 70%;
   width: 70%;
   position: absolute;
-  box-shadow: 6px 6px 6px 0 rgba(0,0,0,0.5);
+  text-shadow: white 3px 3px 2px;
+  box-shadow: 10px 10px 10px 0 rgba(0,0,0,0.5);
   border-radius: 15px;
   background-color: white;
+  background-image: url('images/building3.png');
+  background-size: cover;
 }
 .buildingsContainer:hover {
     transform: scale(1.05);
@@ -72,6 +100,22 @@ body{
   height: 30%;
   width: 100%;
   display: flex;
+  position: relative;
+  justify-content: flex-end;
+}
+.colParent{
+  position: absolute;
+  height: 90%;
+  width: 90%;
+  top: 5%;
+  left: 5%;
+  border-radius: 20px;
+  text-align: center;
+  display: flex;
+}
+.col1, .col2{
+  height: 100%;
+  width: 100%;
 }
 .active{
   border: 4px inset red;
@@ -80,32 +124,13 @@ body{
 .templateArea{
   display: none;
 }
-.playerArea {
-  display: flex;
-  justify-content: flex-end;
-}
 div#playerDom {
   width: 25%;
-}
-.colParent {
-  height: 100%;
-  display: flex;
-  justify-content: space-around;
-  border-radius: 20px;
+  position: relative;
 }
 .playerArea img {
   width: 75%;
   height: 100%;
-}
-.building1, .building2, .building3 {
-  background: url('images/card.png');
-  background-size: cover;
-}
-.cardStatic {
-  position: relative;
-}
-.cardStatic img {
-  width: 25%;
 }
 .playerCard {
   position: aboslute;

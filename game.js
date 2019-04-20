@@ -100,14 +100,22 @@ class Game {
             this.updateBuyback(key, buildingData.requirements);
         }
         this.players[this.playerTurnIndex].addBuildingsMade( buildingData.points, tokenValue, -1 );
-        $(event.currentTarget).children().fadeOut(500);
+        $(event.currentTarget).empty().hide();
     }
 
-    updateBuyback( resourceName, buildingData){
-        var index = null;
+    // updateBuyback( resourceName, buildingData){
+    //     var index = null;
 
+    //     this.resources[resourceName].count += buildingData[resourceName];
+    //     $('.resourceContainer[data-resource='+resourceName+'] .resourceCount').text( resource.count )
+    //     //$(".resources").find('span.'+key).text(this.resources[index][key]);
+    // }
+    updateBuyback( resourceName, buildingData){
+        debugger;
+        var index = null;
+ 
         this.resources[resourceName].count += buildingData[resourceName];
-        $('.resourceContainer[data-resource='+resourceName+'] .resourceCount').text( resource.count )
+        $('.resourceContainer[data-resource='+resourceName+'] .resourceCount').text( this.resources[resourceName].count );
         //$(".resources").find('span.'+key).text(this.resources[index][key]);
     }
     
@@ -161,7 +169,6 @@ class Game {
     }
 
     resetResourceLimit(){
-        debugger;
         for (var key in this.resources){
             this.resources[key].playerLimit = 2;
             this.resources.food.playerLimit = Infinity;
