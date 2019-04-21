@@ -5,14 +5,18 @@ class Game {
         this.tokens = tokens;
         this.gameBoard = new Gameboard(this.resources, this.buildings, this.tokens);
         this.players = [];
-        this.addPlayer('blue');
-        this.addPlayer('yellow');
+        this.colors = ['blue', 'yellow', 'green', 'slategray'];
         this.playerTurnIndex = 0;
-        this.players[this.playerTurnIndex].makeActive();
         this.addEventListener = this.addEventListener.bind(this);
         this.checkResources = this.checkResources.bind(this);
         this.checkBuildingRequirement = this.checkBuildingRequirement.bind(this);
         this.addEventListener();
+    }
+    startGame(numPlayers){
+        for (var colorI=0; colorI < numPlayers; colorI++){
+            this.addPlayer( this.colors[colorI] );
+        }
+        this.players[this.playerTurnIndex].makeActive();
     }
     addPlayer(color){
         var playerObj = new Player(color);

@@ -39,38 +39,31 @@ body{
   width: 75%;
   position: absolute;
   box-shadow: 6px 6px 6px 0 rgba(0,0,0,0.5);
-  /* border-radius: 5px; */
-  border-style: solid;
-  border-image:linear-gradient(rgb(162, 78, 14), transparent) 1;
-  border-bottom: 0;
+  border-radius: 5px;
   text-align: center;
   cursor: pointer;
 }
 .resourceContainer > div.clay{
-  background: url(images/clay.png) no-repeat;
-  background-size: 55% auto;
-  background-position: center;
+  background: url(images/clayspot.jpg) no-repeat;
+  background-size: cover;
   text-shadow: white 1px 1px 2px;
   background-color: white;
 }
 .resourceContainer > div.food{
-  background: url(images/food.png) no-repeat;
-  background-size: 55% auto;
-  background-position: center;
+  background: url(images/foodspot.jpg) no-repeat;
+  background-size: cover;
   text-shadow: white 1px 1px 2px;
   background-color: white;
 }
 .resourceContainer > div.wood{
-  background: url(images/wood.png) no-repeat;
-  background-size: 55% auto;
-  background-position: center;
+  background: url(images/woodspot.jpg) no-repeat;
+  background-size: cover;
   text-shadow: white 1px 1px 2px;
   background-color: white;
 }
 .resourceContainer > div.stone{
-  background: url(images/stone.png) no-repeat;
-  background-size: 55% auto;
-  background-position: center;
+  background: url(images/stonespot.jpg) no-repeat;
+  background-size: cover;
   text-shadow: white 1px 1px 2px;
   background-color: white;
 }
@@ -111,8 +104,8 @@ body{
   justify-content: flex-end;
 }
 .playerArea img {
-  width: 75%;
-  height: 100%;
+  width: 100%;
+  max-width: 600px;
 }
 div#playerDom {
   width: 25%;
@@ -174,4 +167,29 @@ div#playerDom {
 }
 .reset-button:active{
   transform: scale(1.5);
+}
+
+.start-modal {
+  background: url('images/theriver-bg.jpg') no-repeat;
+  background-size: cover;
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  top: 0;
+  left: 0; 
+  text-align: center;
+}
+.start-modal img {
+  width: 100%;
+}
+.start-modal p {
+  font-size: 1.5em;
+  color: white;
+  text-shadow: black 1px 1px 2px;
+}
+.start-modal-inner {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
 }
