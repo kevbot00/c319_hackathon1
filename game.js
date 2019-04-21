@@ -41,7 +41,7 @@ class Game {
             award = resource.awardForFirst;
         }
         if(resource.count < award){
-            console.warn(`trying to take ${award} from ${resourceName}, but there is only ${resource.count}`)
+            console.warn(`trying to take ${award} from ${resourceName}, but there is only ${resource.count}`);
             award = resource.count;
         }
         if(this.players[this.playerTurnIndex].storageCount < award) {
@@ -56,16 +56,16 @@ class Game {
         resource.count-=count;
         console.log(`taking ${count} ${resourceName}, now at ${resource.count}`);
         $('.resourceContainer[data-resource='+resourceName+'] .resourceCount').text( resource.count )
-        $('.resourceContainer[data-resource='+resourceName+'] .spotCount').text( resource.playerLimit - resource.currentPlayers.length )
+        $('.resourceContainer[data-resource='+resourceName+'] .spotCount').text( resource.playerLimit - resource.currentPlayers.length );
         this.players[this.playerTurnIndex].updateStats(resourceName, count, -1);
         this.gotoNextPlayer();
     }
     checkBuildingRequirement(){
+        debugger;
         var buildingClicked = $(event.currentTarget).attr('class');
         var buildingData = this.gameBoard.checkRequirements( this.players[this.playerTurnIndex], buildingClicked);
-        if (buildingData && buildingClicked) {
+        if (buildingData) {
             this.updateAll(buildingData);
-            this.gameBoard.clickedBuildingCards(buildingClicked);
             this.gotoNextPlayer();
         }
     }
@@ -73,9 +73,9 @@ class Game {
         var tokenValue = this.tokens.pop();
         this.players[this.playerTurnIndex].updatePoints( buildingData.points, tokenValue);
         this.players[this.playerTurnIndex].updateBuildingWorkerAdjust( -1 );
-        for (var key in buildingData.requirements) {
-            this.players[this.playerTurnIndex].updatePerBuilding( key, buildingData.requirements[key]);
-            this.updateBuyback(key, buildingData.requirements);
+        for (var resource in buildingData.resources) {
+            this.players[this.playerTurnIndex].updatePerBuilding( resource, buildingData.resources[resource]);
+            this.updateBuyback(resource, buildingData.resources);
         }
         this.players[this.playerTurnIndex].addBuildingsMade( buildingData.points, tokenValue, -1 );
         $(event.currentTarget).empty().hide();
