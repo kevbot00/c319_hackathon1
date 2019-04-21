@@ -41,12 +41,8 @@ class Player{
         this.renderDomElements();
     }
     updatePerBuilding ( resource, delta ){
-        if (resource === 'food'){
-            this.storageCount+=delta;
-        } else {
-            this.storage[resource]-=delta;
-            this.storageCount+=delta;
-        }
+        this.storage[resource]-=delta;
+        this.storageCount+=delta;
         this.renderDomElements( resource );
     }
     updatePoints( points , tokens ){
