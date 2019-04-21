@@ -1,6 +1,6 @@
 class Player{
     constructor(color){
-        this.name = 'player';
+        this.name = 'Player';
         this.color = color;
         this.victoryPoint = 0;
         this.tokenCount = 0;
