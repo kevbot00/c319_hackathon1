@@ -14,8 +14,8 @@ class GameInput{
     }
     handleInput(){
         var userInput = parseInt( $("#userInput").val());
-        if(userInput<1 || userInput>4){
-            this.displayResult('Must be from 1 to 4 players!');
+        if(userInput<2 || userInput>4){
+            this.displayResult('Must be from 2 to 4 players!');
             return;
         }
         startApp(userInput);

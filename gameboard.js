@@ -10,11 +10,21 @@ class Gameboard{
             building4: null
         };
         this.checkRequirements = this.checkRequirements.bind(this);
-        this.clickedBuildingCards = this.clickedBuildingCards.bind(this);
+        // this.clickedBuildingCards = this.clickedBuildingCards.bind(this);
         this.shuffle( this.sourceBuildings );
         this.dealBuildingCards();
         this.addBuildingsToDom();
     }
+
+    set building( building ){
+        this.buildings[building] = null;
+    }
+
+    get building(){
+        return this.buildings;
+    }
+
+    
     shuffle( thingToShuffle ){
         for( var cardI = thingToShuffle.length-1; cardI>0; cardI--){
             var randomIndex = Math.floor(Math.random() * cardI);
@@ -46,58 +56,113 @@ class Gameboard{
             $('.'+building).append(newDiv);
         }
     }
-    checkRequirements( player , building ){
-        if (this.buildings[building] === null) {
-            return;
-        }
-        var currentFoodUsed = 0;
-        var playerFoodUsed = 0;
-        var playerFoodRemaining = player.storage.food;
-        var buildingReq = this.buildings[building].requirements;
-        for (var key in buildingReq){
-            if (buildingReq[key] > player.storage[key] + player.storage.food){
-                return false;
-            } else if (player.storage.food){
-                if (buildingReq[key] > player.storage.food){
-                    buildingReq.food = buildingReq[key] - player.storage.food + playerFoodUsed || 1;
-                    playerFoodUsed += buildingReq[key] - player.storage.food || 1;
-                    buildingReq[key] -= buildingReq[key] - playerFoodUsed || 1;
-                } else {
-                    buildingReq.food = buildingReq[key] + playerFoodUsed || 1;
-                    playerFoodUsed += buildingReq[key] || 1;
-                    currentFoodUsed += buildingReq[key] || 1;
-                    playerFoodRemaining -= buildingReq[key];
-                    buildingReq[key] -= currentFoodUsed || 1;
-                }
-                player.storage.food = playerFoodRemaining;
-                currentFoodUsed = 0;
-            }
-        }
-        player.storage.food = playerFoodRemaining;
-        return this.buildings[building];
-    }
+
     resetBuildingCards(){
-        for (var key in this.buildings){
-            if (this.buildings[key] === null){
-                this.buildings[key] = this.sourceBuildings.pop();
+        for (var building in this.buildings){
+            if (this.buildings[building] === null){
+                this.buildings[building] = this.sourceBuildings.pop();
                 var resources = '';
-                var req = this.buildings[key].requirements;
+                var req = this.buildings[building].requirements;
                 for (var x in req){
                     resources = req[x] + ' ' + x + ", " + resources;
                     resources = resources.slice(0,-1);
                 }
-                var pointVal = $('<div>').text('Points: ' + this.buildings[key].points);
+                var pointVal = $('<div>').text('Points: ' + this.buildings[building].points);
                 var requirements = $('<div>').text('Requires: ' + resources);
                 var newDiv = $('<div>')
                 .addClass('babyDiv')
                 .css({'height': '100%'})
                 .append( pointVal, requirements);
-                $('.'+key).append(newDiv);
-                $('.'+key).fadeIn(400);
+// <<<<<<< HEAD
+                $('.'+building).append(newDiv);
+                // $('.'+key).append(newDiv);
+                $('.'+building).fadeIn(400);
+                // $('.'+building).show();
             }
         }
     }
-    clickedBuildingCards( building ){
-        this.buildings[building] = null;
+
+    checkRequirements( player , building ){
+        if (this.buildings[building] === null) {
+            return;
+        }
+        var playerResources = player.getStorage();
+        var totalResourceNeeded = this.getTotalResourceUsed( playerResources , building );
+        if (!totalResourceNeeded){
+            console.warn('not enough resource, pick a different building');
+            return false;
+        }
+        totalResourceNeeded.points = this.buildings[building].points;
+        // this.buildings[building] = null;
+        return totalResourceNeeded;
+    }
+
+    getTotalResourceUsed( playerStorage , building ){
+
+        var playerResourcesAvailableCount = null;
+        var totalResourcesNeeded = null;
+        var buildingRequirement = this.buildings[building].requirements;
+        // adds total resources needed from building tile
+        // adds types of resources needed
+        for (var resourceNeeded in buildingRequirement){
+            totalResourcesNeeded += buildingRequirement[resourceNeeded];
+        }
+        // adds total resources in players storage
+        for (var availableResource in playerStorage ){
+            playerResourcesAvailableCount += playerStorage[availableResource];
+        }
+        // if player's total resource is less than total building resources need
+        //return false
+        if (playerResourcesAvailableCount < totalResourcesNeeded){
+            return false;
+        }
+
+        return this.checkPlayerResource( buildingRequirement , playerStorage );
+    }
+
+    checkPlayerResource( buildingReq , playerResources ){
+        var playerResourcesNeeded = 
+        {
+            resources: 
+            {
+                food: 0,
+                stone: 0,
+                clay: 0,
+                wood: 0
+            }
+        };
+
+        // var buildingRequirement = this.buildings[building].requirements;
+        var playerFoodAvailable = playerResources.food;
+        //for building req and playerResources needed
+        for (var resource in buildingReq){
+            // if player has enough resource, add to playerResourcesNeeded object
+            if (playerResources[resource] >= buildingReq[resource]){
+                playerResourcesNeeded.resources[resource] += buildingReq[resource];
+            } // else if player doesn't have enough resource but have food to make up that resource, add the food and resource needed to playerResourcesNeeded object    
+            else if ( playerResources[resource] + playerFoodAvailable >= buildingReq[resource]){
+                playerResourcesNeeded.resources.food += buildingReq[resource] - playerResources[resource];
+                playerResourcesNeeded.resources[resource] += playerResources[resource];
+                playerFoodAvailable--;
+            } else {
+                return false;
+// =======
+                
+// >>>>>>> 50ebd570cfcbab97acc63eff4ff312e7cf9bc5c5
+            }
+        }
+        playerResourcesNeeded.points = buildingReq.points;
+        return playerResourcesNeeded;
+    }
+
+    replaceBuildCard( ){
+            buildingReq.food = buildingReq[key] + playerFoodUsed || 1;
+            playerFoodUsed += buildingReq[key] || 1;
+            currentFoodUsed += buildingReq[key] || 1;
+            playerFoodRemaining -= buildingReq[key];
+            buildingReq[key] -= currentFoodUsed || 1;   
+            player.storage.food = playerFoodRemaining;
+            currentFoodUsed = 0;
+            player.storage.food = playerFoodRemaining;
     }
 }
