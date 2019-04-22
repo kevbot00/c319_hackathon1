@@ -14,16 +14,6 @@ class Gameboard{
         this.dealBuildingCards();
         this.addBuildingsToDom();
     }
-
-    set building( building ){
-        this.buildings[building] = null;
-    }
-
-    get building(){
-        return this.buildings;
-    }
-
-    
     shuffle( thingToShuffle ){
         for( var cardI = thingToShuffle.length-1; cardI>0; cardI--){
             var randomIndex = Math.floor(Math.random() * cardI);
@@ -143,17 +133,6 @@ class Gameboard{
         }
         playerResourcesNeeded.points = buildingReq.points;
         return playerResourcesNeeded;
-    }
-
-    replaceBuildCard( ){
-            buildingReq.food = buildingReq[key] + playerFoodUsed || 1;
-            playerFoodUsed += buildingReq[key] || 1;
-            currentFoodUsed += buildingReq[key] || 1;
-            playerFoodRemaining -= buildingReq[key];
-            buildingReq[key] -= currentFoodUsed || 1;   
-            player.storage.food = playerFoodRemaining;
-            currentFoodUsed = 0;
-            player.storage.food = playerFoodRemaining;
     }
     clickedBuildingCards( building ){
         this.buildings[building] = null;

@@ -7,7 +7,6 @@ class Game {
         this.players = [];
         this.colors = ['blue', 'yellow', 'green', 'slategray'];
         this.playerTurnIndex = 0;
-        this.addEventListener = this.addEventListener.bind(this);
         this.checkResources = this.checkResources.bind(this);
         this.checkBuildingRequirement = this.checkBuildingRequirement.bind(this);
         this.addEventListener();
@@ -87,7 +86,6 @@ class Game {
         $(event.currentTarget).empty().fadeOut(400);
     }
     updateBuyback( resourceName, buildingData){
-        var index = null;
         this.resources[resourceName].count += buildingData[resourceName];
         $('.resourceContainer[data-resource='+resourceName+'] .resourceCount').text( this.resources[resourceName].count );
     }
@@ -96,10 +94,8 @@ class Game {
         if (this.players[this.players.length - 1].pioneers === 0 && this.players[this.players.length - 1].buildingsMade !== 2){
             this.resetTurn();
             this.resetResourceLimits();
-            debugger;
             this.gameBoard.resetBuildingCards();
         } else if( this.players[this.playerTurnIndex].buildingsMade === 2  ){
-            var message = '';
             this.gameWin();
             return;
         }
