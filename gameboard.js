@@ -15,6 +15,16 @@ class Gameboard{
         this.dealBuildingCards();
         this.addBuildingsToDom();
     }
+
+    set building( building ){
+        this.buildings[building] = null;
+    }
+
+    get building(){
+        return this.buildings;
+    }
+
+    
     shuffle( thingToShuffle ){
         for( var cardI = thingToShuffle.length-1; cardI>0; cardI--){
             var randomIndex = Math.floor(Math.random() * cardI);
@@ -80,6 +90,7 @@ class Gameboard{
             return false;
         }
         totalResourceNeeded.points = this.buildings[building].points;
+        // this.buildings[building] = null;
         return totalResourceNeeded;
     }
 

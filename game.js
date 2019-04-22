@@ -60,7 +60,7 @@ class Game {
         var resource = this.resources[resourceName];
         resource.count-=count;
         console.log(`taking ${count} ${resourceName}, now at ${resource.count}`);
-        $('.resourceContainer[data-resource='+resourceName+'] .resourceCount').text( resource.count )
+        $('.resourceContainer[data-resource='+resourceName+'] .resourceCount').text( resource.count );
         $('.resourceContainer[data-resource='+resourceName+'] .spotCount').text( resource.playerLimit - resource.currentPlayers.length );
         this.players[this.playerTurnIndex].updateStats(resourceName, count, -1);
         this.gotoNextPlayer();
@@ -83,6 +83,7 @@ class Game {
             this.updateBuyback(resource, buildingData.resources);
         }
         this.players[this.playerTurnIndex].addBuildingsMade( buildingData.points, tokenValue, -1 );
+        
         $(event.currentTarget).empty().fadeOut(400);
     }
     updateBuyback( resourceName, buildingData){
@@ -91,6 +92,12 @@ class Game {
         $('.resourceContainer[data-resource='+resourceName+'] .resourceCount').text( this.resources[resourceName].count );
     }
     gotoNextPlayer(){
+        // debugger;
+        // var playersLength = [];
+        // for (var index = 0; index < this.players.length; i++){
+        //     playersLength.push(index);
+        // }
+
         if( this.players[0].pioneers === 0 && this.players[1].pioneers === 0 && this.players[0].buildingsMade !== 2 && this.players[1].buildingsMade !== 2 ){
             this.resetTurn();
             this.resetResourceLimits();
@@ -110,6 +117,23 @@ class Game {
         }
         this.players[this.playerTurnIndex].makeActive();
     }
+
+    resetTurn(){
+        for (var i = 0; i < this.players.length; i++){
+            this.players[i].resetPlayerPioneer();
+        }
+        this.resetResourceLimits();
+    }
+
+    resetResourceLimits(){
+        for (var resource in this.resources){
+            this.resources[resource].playerLimit = 2;
+            this.resources[resource].currentPlayers = [];
+            this.resources.food.playerLimit = Infinity;
+            $('.resourceContainer[data-resource='+resource+'] .spotCount').text( this.resources[resource].playerLimit );
+        }
+    }
+
     gameWin(){
         var highestPlayer = 0;
         for( var playerI = 1; playerI < this.players.length; playerI++){
@@ -120,21 +144,9 @@ class Game {
         $('.message').text('Congrats! '+this.players[highestPlayer].name +(highestPlayer+1)+', you have conquered The River!');
         $('.congrats-modal').fadeIn();
     }
+
     gameRefresh(){
         location.reload();
     }
-    resetTurn(){
-        for (var i = 0; i < this.players.length; i++){
-            this.players[i].resetPlayerPioneer();
-        }
-        this.resetResourceLimits();
-    }
-    resetResourceLimits(){
-        for (var key in this.resources){
-            this.resources[key].playerLimit = 2;
-            this.resources[key].currentPlayers = [];
-            this.resources.food.playerLimit = Infinity;
-            $('.resourceContainer[data-resource='+key+'] .spotCount').text( this.resources[key].playerLimit );
-        }
-    }
+    
 }
