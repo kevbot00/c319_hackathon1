@@ -1,6 +1,9 @@
-$(document).ready(startApp);
+$(document).ready(realStartApp);
 
 var game;
+var gameInput;
+var tokens = [1,2,3,4,5,6];
+
 var resources = {
     clay: {
         count: 9,
@@ -54,7 +57,7 @@ var buildings = [
     points: 60,
     requirements:{
         wood: 1,
-        stone: 2
+        stone: 1
     },
 },
 {
@@ -69,7 +72,7 @@ var buildings = [
     name: 'windmill',
     points: 60,
     requirements: {
-        wood: 1,
+        stone: 1,
         clay: 2
     }
 },
@@ -99,8 +102,19 @@ var buildings = [
 }
 ];
 
-var tokens = [1,2,3,4,5,6];
-
-function startApp(){
-    game = new Game( resources, buildings, tokens);
+function realStartApp(){
+    gameInput = new GameInput();
 }
+
+function startApp( numPlayers ){
+    game = new Game( resources, buildings, tokens);
+    game.startGame( numPlayers );
+}
+
+
+
+
+
+
+
+

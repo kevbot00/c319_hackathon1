@@ -15,6 +15,16 @@ class Gameboard{
         this.dealBuildingCards();
         this.addBuildingsToDom();
     }
+
+    set building( building ){
+        this.buildings[building] = null;
+    }
+
+    get building(){
+        return this.buildings;
+    }
+
+    
     shuffle( thingToShuffle ){
         for( var cardI = thingToShuffle.length-1; cardI>0; cardI--){
             var randomIndex = Math.floor(Math.random() * cardI);
@@ -63,8 +73,11 @@ class Gameboard{
                 .addClass('babyDiv')
                 .css({'height': '100%'})
                 .append( pointVal, requirements);
+// <<<<<<< HEAD
                 $('.'+building).append(newDiv);
-                $('.'+building).show();
+                // $('.'+key).append(newDiv);
+                $('.'+building).fadeIn(400);
+                // $('.'+building).show();
             }
         }
     }
@@ -80,6 +93,7 @@ class Gameboard{
             return false;
         }
         totalResourceNeeded.points = this.buildings[building].points;
+        // this.buildings[building] = null;
         return totalResourceNeeded;
     }
 
@@ -132,6 +146,9 @@ class Gameboard{
                 playerFoodAvailable--;
             } else {
                 return false;
+// =======
+                
+// >>>>>>> 50ebd570cfcbab97acc63eff4ff312e7cf9bc5c5
             }
         }
         playerResourcesNeeded.points = buildingReq.points;
