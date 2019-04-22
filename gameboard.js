@@ -10,7 +10,6 @@ class Gameboard{
             building4: null
         };
         this.checkRequirements = this.checkRequirements.bind(this);
-        // this.clickedBuildingCards = this.clickedBuildingCards.bind(this);
         this.shuffle( this.sourceBuildings );
         this.dealBuildingCards();
         this.addBuildingsToDom();
@@ -73,9 +72,8 @@ class Gameboard{
                 .addClass('babyDiv')
                 .css({'height': '100%'})
                 .append( pointVal, requirements);
-// <<<<<<< HEAD
+
                 $('.'+building).append(newDiv);
-                // $('.'+key).append(newDiv);
                 $('.'+building).fadeIn(400);
                 // $('.'+building).show();
             }
@@ -93,7 +91,6 @@ class Gameboard{
             return false;
         }
         totalResourceNeeded.points = this.buildings[building].points;
-        // this.buildings[building] = null;
         return totalResourceNeeded;
     }
 
@@ -111,8 +108,7 @@ class Gameboard{
         for (var availableResource in playerStorage ){
             playerResourcesAvailableCount += playerStorage[availableResource];
         }
-        // if player's total resource is less than total building resources need
-        //return false
+        // if player's total resource is less than total building resources needed, return false
         if (playerResourcesAvailableCount < totalResourcesNeeded){
             return false;
         }
@@ -132,7 +128,6 @@ class Gameboard{
             }
         };
 
-        // var buildingRequirement = this.buildings[building].requirements;
         var playerFoodAvailable = playerResources.food;
         //for building req and playerResources needed
         for (var resource in buildingReq){
@@ -146,9 +141,6 @@ class Gameboard{
                 playerFoodAvailable--;
             } else {
                 return false;
-// =======
-                
-// >>>>>>> 50ebd570cfcbab97acc63eff4ff312e7cf9bc5c5
             }
         }
         playerResourcesNeeded.points = buildingReq.points;
