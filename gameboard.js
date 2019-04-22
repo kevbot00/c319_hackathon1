@@ -64,7 +64,7 @@ class Gameboard{
                 .css({'height': '100%'})
                 .append( pointVal, requirements);
                 $('.'+building).append(newDiv);
-                $('.'+building).show();
+                $('.'+building).fadeIn(400);
             }
         }
     }
@@ -147,5 +147,8 @@ class Gameboard{
             player.storage.food = playerFoodRemaining;
             currentFoodUsed = 0;
             player.storage.food = playerFoodRemaining;
+    }
+    clickedBuildingCards( building ){
+        this.buildings[building] = null;
     }
 }

@@ -5,13 +5,18 @@ class Game {
         this.tokens = tokens;
         this.gameBoard = new Gameboard(this.resources, this.buildings, this.tokens);
         this.players = [];
-        this.addPlayer('blue');
-        this.addPlayer('yellow');
+        this.colors = ['blue', 'yellow', 'green', 'slategray'];
         this.playerTurnIndex = 0;
         this.addEventListener = this.addEventListener.bind(this);
         this.checkResources = this.checkResources.bind(this);
         this.checkBuildingRequirement = this.checkBuildingRequirement.bind(this);
         this.addEventListener();
+    }
+    startGame(numPlayers){
+        for (var colorI=0; colorI < numPlayers; colorI++){
+            this.addPlayer( this.colors[colorI] );
+        }
+        this.players[this.playerTurnIndex].makeActive();
     }
     addPlayer(color){
         var playerObj = new Player(color);
@@ -61,11 +66,11 @@ class Game {
         this.gotoNextPlayer();
     }
     checkBuildingRequirement(){
-        debugger;
         var buildingClicked = $(event.currentTarget).attr('class');
         var buildingData = this.gameBoard.checkRequirements( this.players[this.playerTurnIndex], buildingClicked);
         if (buildingData) {
             this.updateAll(buildingData);
+            this.gameBoard.clickedBuildingCards(buildingClicked);
             this.gotoNextPlayer();
         }
     }
@@ -78,7 +83,7 @@ class Game {
             this.updateBuyback(resource, buildingData.resources);
         }
         this.players[this.playerTurnIndex].addBuildingsMade( buildingData.points, tokenValue, -1 );
-        $(event.currentTarget).empty().hide();
+        $(event.currentTarget).empty().fadeOut(400);
     }
     updateBuyback( resourceName, buildingData){
         var index = null;
@@ -89,6 +94,7 @@ class Game {
         if( this.players[0].pioneers === 0 && this.players[1].pioneers === 0 && this.players[0].buildingsMade !== 2 && this.players[1].buildingsMade !== 2 ){
             this.resetTurn();
             this.resetResourceLimits();
+            debugger;
             this.gameBoard.resetBuildingCards();
         } else if( this.players[this.playerTurnIndex].buildingsMade === 2  ){
             var message = '';
@@ -111,7 +117,7 @@ class Game {
                 highestPlayer = playerI;
             }
         }
-        $('.message').text('Congrats! '+this.players[highestPlayer].name +(highestPlayer+1)+' you have conquered The River!');
+        $('.message').text('Congrats! '+this.players[highestPlayer].name +(highestPlayer+1)+', you have conquered The River!');
         $('.congrats-modal').fadeIn();
     }
     gameRefresh(){
