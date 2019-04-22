@@ -92,13 +92,8 @@ class Game {
         $('.resourceContainer[data-resource='+resourceName+'] .resourceCount').text( this.resources[resourceName].count );
     }
     gotoNextPlayer(){
-        // debugger;
-        // var playersLength = [];
-        // for (var index = 0; index < this.players.length; i++){
-        //     playersLength.push(index);
-        // }
-
-        if( this.players[0].pioneers === 0 && this.players[1].pioneers === 0 && this.players[0].buildingsMade !== 2 && this.players[1].buildingsMade !== 2 ){
+        //if last player has 0 pioneers and not yet won the game, reset player turns
+        if (this.players[this.players.length - 1].pioneers === 0 && this.players[this.players.length - 1].buildingsMade !== 2){
             this.resetTurn();
             this.resetResourceLimits();
             debugger;
